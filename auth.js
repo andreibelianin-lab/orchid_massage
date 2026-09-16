@@ -5,17 +5,45 @@
 const AUTH_KEY = 'orchid_auth';
 
 /* ============================================================
-   НАСТРОЙКИ АДМИНА
+   НАСТРОЙКИ АДМИНОВ
    ============================================================ */
-const ADMIN_PHONE    = '+79857341447';
-const ADMIN_PASSWORD = '1102';
-const ADMIN_NAME     = 'Админ';
+const ADMIN_USERS = [
+    {
+        phone: '+79857341447',
+        password: '1102',
+        name: 'Админ'
+    },
+    {
+        phone: '+79852684177',
+        password: '7780',
+        name: 'Специалист'
+    }
+];
 
+/* Приводит любой ввод к 11 цифрам, начинающимся с 7 */
 function normalizePhone(phone) {
-    return String(phone || '').replace(/\D/g, '');
+    var digits = String(phone || '').replace(/\D/g, '');
+
+    if (digits.length === 10) {
+        /* 9852684177 → 79852684177 */
+        digits = '7' + digits;
+    } else if (digits.length === 11 && digits.charAt(0) === '8') {
+        /* 89852684177 → 79852684177 */
+        digits = '7' + digits.slice(1);
+    }
+
+    return digits;
 }
+
+function findAdminByPhone(phone) {
+    const norm = normalizePhone(phone);
+    return ADMIN_USERS.find(function(u) {
+        return normalizePhone(u.phone) === norm;
+    }) || null;
+}
+
 function isAdminPhone(phone) {
-    return normalizePhone(phone) === normalizePhone(ADMIN_PHONE);
+    return findAdminByPhone(phone) !== null;
 }
 
 /* ============================================================
@@ -38,19 +66,32 @@ function loginStep1(name, phone) {
     phone = (phone || '').trim();
 
     if (name.length < 2) return { ok: false, error: 'Введите имя (минимум 2 символа)' };
-    if (normalizePhone(phone).length < 6) return { ok: false, error: 'Введите корректный телефон' };
+
+    var norm = normalizePhone(phone);
+    if (norm.length < 10) return { ok: false, error: 'Введите корректный телефон' };
 
     if (isAdminPhone(phone)) {
+        /* Запоминаем, кто именно пытается войти — понадобится на шаге 2 */
+        window.__pendingAdminPhone = phone;
         return { ok: true, needPassword: true };
     }
 
-    setSession({ role: 'client', name, phone });
+    /* Клиенту сохраняем номер как он ввёл — для красивых карточек */
+    setSession({ role: 'client', name: name, phone: phone });
     return { ok: true, role: 'client' };
 }
 
 function loginStep2Admin(password) {
-    if (password === ADMIN_PASSWORD) {
-        setSession({ role: 'admin', name: ADMIN_NAME, phone: ADMIN_PHONE });
+    var phone = window.__pendingAdminPhone;
+    var admin = phone ? findAdminByPhone(phone) : null;
+
+    if (!admin) {
+        return { ok: false, error: 'Сессия входа истекла. Введите телефон заново.' };
+    }
+
+    if (password === admin.password) {
+        setSession({ role: 'admin', name: admin.name, phone: admin.phone });
+        window.__pendingAdminPhone = null;
         return { ok: true };
     }
     return { ok: false, error: 'Неверный пароль' };
@@ -79,7 +120,9 @@ function updateHeaderAuth() {
         el.innerHTML = '<a href="login.html" class="auth-link">Кабинет</a>';
         return;
     }
-    const who = session.role === 'admin' ? 'Админ' : session.name.split(' ')[0];
+    const who = session.role === 'admin'
+        ? (session.name || 'Админ')
+        : (session.name ? session.name.split(' ')[0] : 'Кабинет');
     el.innerHTML = `
         <a href="cabinet.html" class="auth-link">Кабинет (${escapeHtml(who)})</a>
         <a href="#" onclick="logout();return false;" style="margin-left:12px;color:var(--champagne);">Выйти</a>
