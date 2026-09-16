@@ -10,8 +10,11 @@ function renderHeaderAuthItem() {
         el.innerHTML = '<a href="login.html">Войти</a>';
         return;
     }
+    var label = session.role === 'admin'
+        ? (session.name || 'Админ')
+        : (session.name ? session.name.split(' ')[0] : 'Кабинет');
     el.innerHTML =
-        '<a href="cabinet.html">' + (session.role === 'admin' ? 'Админ' : session.name.split(' ')[0]) + '</a>' +
+        '<a href="cabinet.html">' + label + '</a>' +
         '<a href="#" onclick="logout();return false;" style="margin-left:12px;color:var(--champagne);">Выйти</a>';
 }
 
@@ -637,8 +640,18 @@ function saveTripOptionFromAdmin() {
    КЛИЕНТ — свои записи и консультации
    ============================================================ */
 
+/* Приводит телефон к единому виду — чтобы находить записи клиента
+   независимо от того, как он ввёл номер: 9..., 8..., +7... */
 function normalizePhoneClient(p) {
-    return String(p || '').replace(/\D/g, '');
+    var digits = String(p || '').replace(/\D/g, '');
+
+    if (digits.length === 10) {
+        digits = '7' + digits;
+    } else if (digits.length === 11 && digits.charAt(0) === '8') {
+        digits = '7' + digits.slice(1);
+    }
+
+    return digits;
 }
 
 function initClientCabinet() {
@@ -662,7 +675,6 @@ function getMyRequests() {
     return all.filter(function (r) {
         return normalizePhoneClient(r.phone) === myPhone;
     }).sort(function (a, b) {
-        /* Сначала новые сверху */
         var aKey = (a.date || '') + ' ' + (a.time || '');
         var bKey = (b.date || '') + ' ' + (b.time || '');
         return bKey.localeCompare(aKey);
@@ -684,7 +696,6 @@ function renderMyBookings() {
         return;
     }
 
-    /* Разделяем на актуальные и архив */
     var today = new Date().toISOString().split('T')[0];
 
     var upcoming = [];
@@ -698,7 +709,6 @@ function renderMyBookings() {
                 past.push(r);
             }
         } else {
-            /* Консультации — всегда в актуальные, пока не отменены */
             if (r.status !== 'cancelled') {
                 upcoming.push(r);
             } else {
@@ -707,7 +717,6 @@ function renderMyBookings() {
         }
     });
 
-    /* Сортируем актуальные — ближайшие сверху */
     upcoming.sort(function (a, b) {
         var aKey = (a.date || '0000-00-00') + ' ' + (a.time || '');
         var bKey = (b.date || '0000-00-00') + ' ' + (b.time || '');
@@ -716,7 +725,6 @@ function renderMyBookings() {
 
     var html = '';
 
-    /* --- Актуальные --- */
     if (upcoming.length) {
         html += '<h4 class="my-bookings-subtitle">Актуальные</h4>';
         html += '<div class="my-bookings-group">';
@@ -724,7 +732,6 @@ function renderMyBookings() {
         html += '</div>';
     }
 
-    /* --- Архив --- */
     if (past.length) {
         html += '<h4 class="my-bookings-subtitle my-bookings-subtitle-archive">История</h4>';
         html += '<div class="my-bookings-group my-bookings-group-archive">';
@@ -743,7 +750,6 @@ function renderBookingCard(req) {
         cancelled: '✕ Отменено'
     }[req.status] || req.status;
 
-    /* Консультация */
     if (req.type === 'consultation') {
         return '' +
             '<div class="my-booking-card my-booking-consult status-' + (req.status || 'pending') + '">' +
@@ -759,7 +765,6 @@ function renderBookingCard(req) {
             '</div>';
     }
 
-    /* Запись на приём */
     var dateLabel = '';
     if (req.date) {
         try {
