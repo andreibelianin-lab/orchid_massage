@@ -9,7 +9,361 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Montserrat:wght@600;700&family=Lora:ital@0;1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css"><!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Салон «Орхидея» — медицинский массаж, реабилитация. Запись онлайн.">
+    <title>Салон «Орхидея» | Медицинский массаж</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Montserrat:wght@600;700&family=Lora:ital@0;1&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="glass.css">
+    <link rel="stylesheet" href="datepicker.css">
+    <link rel="stylesheet" href="certificates.css">
+    <link rel="stylesheet" href="diplomas.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+<div class="frame-left" aria-hidden="true"></div>
+<div class="frame-right" aria-hidden="true"></div>
+
+<header class="main-header">
+    <nav class="container">
+        <a href="#" class="logo">ОРХИДЕЯ</a>
+        <ul>
+            <li class="nav-dropdown">
+                <a href="#about" class="nav-dropdown-toggle">
+                    О нас
+                    <i class="fas fa-chevron-down nav-caret"></i>
+                </a>
+                <ul class="nav-dropdown-menu">
+                    <li>
+                        <a href="#diplomas">
+                            <i class="fas fa-award"></i> Квалификация
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://vk.ru/orchid_massage" target="_blank" rel="noopener" class="nav-vk-link">
+                            <i class="fab fa-vk"></i> Мы во ВКонтакте
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#booking-form">
+                            <i class="fas fa-calendar-check"></i> Записаться
+                        </a>
+                    </li>
+                    <li>
+                        <a href="tel:+74950000000">
+                            <i class="fas fa-phone"></i> Позвонить
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#reviews">
+                            <i class="fas fa-star"></i> Отзывы
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li><a href="#services">Услуги и цены</a></li>
+            <li><a href="#certificates">Сертификаты</a></li>
+            <li><a href="#reviews">Отзывы</a></li>
+
+            <li class="nav-vk-icon">
+                <a href="https://vk.ru/orchid_massage" target="_blank" rel="noopener" title="Мы во ВКонтакте">
+                    <i class="fab fa-vk"></i>
+                </a>
+            </li>
+
+            <li class="auth-item" id="header-auth-item">
+                <a href="login.html" class="auth-link">Кабинет</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<section class="hero-slider">
+
+    <div class="slide active">
+        <div class="slide-content container">
+            <h1>Массаж всей спины</h1>
+            <p>Глубокое расслабление и снятие напряжения</p>
+            <div class="cta-group">
+                <a href="#booking-form" class="btn btn-primary">Записаться на прием</a>
+                <a href="#consultation" class="btn btn-outline">Получить консультацию</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide">
+        <div class="slide-content container">
+            <h1>Массаж воротниковой зоны</h1>
+            <p>Избавление от зажимов и головной боли</p>
+            <div class="cta-group">
+                <a href="#booking-form" class="btn btn-primary">Записаться на прием</a>
+                <a href="#consultation" class="btn btn-outline">Получить консультацию</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide">
+        <div class="slide-content container">
+            <h1>Массаж рук</h1>
+            <p>Восстановление лёгкости движений</p>
+            <div class="cta-group">
+                <a href="#booking-form" class="btn btn-primary">Записаться на прием</a>
+                <a href="#consultation" class="btn btn-outline">Получить консультацию</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide">
+        <div class="slide-content container">
+            <h1>Массаж ног, включая стопы</h1>
+            <p>Снятие усталости и тяжести в ногах</p>
+            <div class="cta-group">
+                <a href="#booking-form" class="btn btn-primary">Записаться на прием</a>
+                <a href="#consultation" class="btn btn-outline">Получить консультацию</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide">
+        <div class="slide-content container">
+            <h1>Антицеллюлитный массаж</h1>
+            <p>Ноги, ягодицы и живот — работаем комплексно</p>
+            <div class="cta-group">
+                <a href="#booking-form" class="btn btn-primary">Записаться на прием</a>
+                <a href="#consultation" class="btn btn-outline">Получить консультацию</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide">
+        <div class="slide-content container">
+            <h1>Массаж лица</h1>
+            <p>В том числе лимфодренажный</p>
+            <div class="cta-group">
+                <a href="#booking-form" class="btn btn-primary">Записаться на прием</a>
+                <a href="#consultation" class="btn btn-outline">Получить консультацию</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide">
+        <div class="slide-content container">
+            <h1>Детский массаж</h1>
+            <p>Бережно и безопасно для малыша</p>
+            <div class="cta-group">
+                <a href="#booking-form" class="btn btn-primary">Записаться на прием</a>
+                <a href="#consultation" class="btn btn-outline">Получить консультацию</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide">
+        <div class="slide-content container">
+            <h1>Атмосфера салона</h1>
+            <p>Спокойная музыка · гипоаллергенные масла</p>
+            <div class="cta-group">
+                <a href="#booking-form" class="btn btn-primary">Записаться на прием</a>
+                <a href="#consultation" class="btn btn-outline">Получить консультацию</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="slider-nav">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+    </div>
+</section>
+
+<section id="about" class="container about-section">
+    <h2>Почему выбирают салон «Орхидея»?</h2>
+    <div class="features-grid">
+        <div class="feature-card">
+            <i class="fas fa-user-md icon-big"></i>
+            <h3>Медицинский подход</h3>
+            <p>Все наши специалисты имеют медицинское образование и сертификаты массажистов.</p>
+        </div>
+        <div class="feature-card">
+            <i class="fas fa-certificate icon-big"></i>
+            <h3>Премиальные масла</h3>
+            <p>Используем только сертифицированные органические составы без парабенов.</p>
+        </div>
+        <div class="feature-card">
+            <i class="fas fa-hand-holding-medical icon-big"></i>
+            <h3>Индивидуальный план</h3>
+            <p>Перед первым сеансом проводится диагностика осанки и мышечных зажимов.</p>
+        </div>
+    </div>
+</section>
+
+<section id="services" class="services-section">
+    <div class="container">
+        <h2>Услуги и цены</h2>
+        <div class="price-list" id="services-table-body"></div>
+
+        <!-- Плашка под прайсом — редактируется в админке -->
+        <div id="services-note-container"></div>
+    </div>
+</section>
+
+<!-- ================= ПОДАРОЧНЫЕ СЕРТИФИКАТЫ ================= -->
+<section id="certificates" class="cert-section">
+    <div class="container">
+        <h2>Подарочные сертификаты</h2>
+        <p class="cert-subtitle">Лучший подарок — забота о близком человеке</p>
+
+        <div class="cert-carousel">
+            <button class="cert-arrow" id="cert-prev" aria-label="Предыдущий сертификат">‹</button>
+            <div class="cert-stage" id="cert-stage"></div>
+            <button class="cert-arrow" id="cert-next" aria-label="Следующий сертификат">›</button>
+        </div>
+
+        <div class="cert-info">
+            <h3 class="cert-title" id="cert-title"></h3>
+            <p class="cert-desc" id="cert-desc"></p>
+            <a class="cert-cta" id="cert-cta" href="#consultation">
+                <i class="fas fa-phone"></i> Узнать подробнее
+            </a>
+        </div>
+
+        <div class="cert-dots" id="cert-dots"></div>
+    </div>
+</section>
+
+<div class="cert-lightbox" id="cert-lightbox" onclick="if(event.target===this) closeCertLightbox()">
+    <button class="cert-lightbox-close" onclick="closeCertLightbox()" aria-label="Закрыть">✕</button>
+    <img id="cert-lightbox-img" src="" alt="Сертификат">
+</div>
+
+<section id="reviews" class="container reviews-section">
+    <h2>Отзывы наших клиентов</h2>
+    <div class="review-slider">
+        <div class="review-card">
+            <q>После курса массажа у меня исчезли головные боли, которые мучили 10 лет из-за шеи.</q>
+            <cite>— Елена, 42 года</cite>
+        </div>
+        <div class="review-card">
+            <q>Ходим с малышом на детский массаж. Очень бережно и профессионально.</q>
+            <cite>— Мария, 28 лет</cite>
+        </div>
+        <div class="review-card">
+            <q>Ушла тяжесть в ногах уже после первого сеанса. Очень деликатное отношение.</q>
+            <cite>— Анна, 35 лет</cite>
+        </div>
+    </div>
+</section>
+
+<!-- ================= КВАЛИФИКАЦИЯ (ДИПЛОМЫ) ================= -->
+<section id="diplomas" class="diplomas-section">
+    <div class="container">
+        <h2>Квалификация специалистов</h2>
+        <p class="diplomas-subtitle">Дипломы и сертификаты, подтверждающие наш профессионализм</p>
+    </div>
+
+    <div class="diplomas-marquee">
+        <div class="diplomas-track" id="diplomas-track"></div>
+    </div>
+</section>
+
+<div class="diplomas-lightbox" id="diplomas-lightbox" onclick="if(event.target===this) closeDiplomaLightbox()">
+    <button class="diplomas-lightbox-close" onclick="closeDiplomaLightbox()" aria-label="Закрыть">✕</button>
+    <img id="diplomas-lightbox-img" src="" alt="Диплом">
+</div>
+
+<section id="booking-form" class="form-section">
+    <div class="container">
+        <h2>Выберите свой путь к здоровью</h2>
+        <div class="double-form">
+
+            <div id="consultation" class="form-box consultation-box">
+                <h3>🩺 Получить консультацию</h3>
+                <p>Не уверены, какой вид массажа вам нужен? Оставьте номер — специалист перезвонит и подберёт методику.</p>
+                <form onsubmit="submitConsultation(event)">
+                    <input type="text" name="name" placeholder="Ваше имя" required>
+                    <input type="tel" name="phone" placeholder="+7 (___) ___-__-__" required>
+                    <button type="submit" class="btn btn-outline">Жду звонка</button>
+                </form>
+            </div>
+
+            <div class="form-box booking-box">
+                <h3>🗓 Записаться на прием</h3>
+                <p>Сначала выберите услугу — потом появятся свободные талоны.</p>
+                <form onsubmit="submitBooking(event)">
+                    <input type="text" name="name" placeholder="Ваше имя" required>
+                    <input type="tel" name="phone" placeholder="Телефон" required>
+
+                    <label style="display:block;margin:10px 0 5px;color:var(--text-muted);font-size:.9em;">Услуга</label>
+                    <select name="service" id="booking-service" required onchange="renderSlots()">
+                        <option disabled selected value="">— Сначала выберите услугу —</option>
+                    </select>
+
+                    <label style="display:block;margin:10px 0 5px;color:var(--text-muted);font-size:.9em;">Дата визита</label>
+                    <input type="date" name="date" id="booking-date" required onchange="renderSlots()">
+
+                    <label style="display:block;margin:10px 0 5px;color:var(--text-muted);font-size:.9em;">Свободное время</label>
+                    <div id="slots-container" class="slots-grid">
+                        <div class="slots-empty">Сначала выберите услугу и дату</div>
+                    </div>
+                    <input type="hidden" name="time" id="booking-time" required>
+
+                    <button type="submit" class="btn btn-primary" style="width:100%;">Забронировать время</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<footer class="main-footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div>
+                <h4>Салон «Орхидея»</h4>
+                <p>Массаж для взрослых и детей</p>
+            </div>
+            <div>
+                <h4>Контакты</h4>
+                <p><i class="fas fa-map-marker-alt"></i> г. Москва, ул. Цветочная, д. 1</p>
+                <p><i class="fas fa-phone"></i> +7 (495) 000-00-00</p>
+                <p>
+                    <i class="fab fa-vk"></i>
+                    <a href="https://vk.ru/orchid_massage" target="_blank" rel="noopener"
+                       style="color:var(--champagne);text-decoration:none;">
+                        vk.ru/orchid_massage
+                    </a>
+                </p>
+            </div>
+            <div>
+                <h4>График</h4>
+                <p>Пн–Вс: 09:00 – 21:00</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+<script src="slots.js"></script>
+<script src="services.js"></script>
+<script src="booking.js"></script>
+<script src="auth.js"></script>
+<script src="datepicker.js"></script>
+<script src="certificates.js"></script>
+<script src="diplomas.js"></script>
+</body>
+</html>
     <link rel="stylesheet" href="glass.css">
     <link rel="stylesheet" href="datepicker.css">
     <link rel="stylesheet" href="certificates.css">
