@@ -1,0 +1,600 @@
+/* ============================================================
+   АДМИН-ПАНЕЛЬ И КАБИНЕТ КЛИЕНТА
+   ============================================================ */
+
+.admin-dashboard { padding: 30px 0 80px; }
+
+.admin-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+.admin-tab {
+    padding: 12px 26px;
+    background: transparent;
+    border: 1px solid var(--border-glass);
+    color: var(--text-muted);
+    border-radius: 30px;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 0.95em;
+    transition: all 0.25s;
+}
+.admin-tab.active, .admin-tab:hover {
+    background: var(--card-glass-strong);
+    border-color: var(--champagne);
+    color: var(--champagne);
+}
+.admin-tab-content { display: none; animation: fadeIn 0.4s; }
+.admin-tab-content.active { display: block; }
+
+.admin-layout {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    gap: 30px;
+    align-items: start;
+}
+
+/* ---------- Календарь ---------- */
+.calendar-widget {
+    background: var(--card-glass);
+    border: 1px solid var(--border-glass);
+    border-radius: 20px;
+    padding: 24px;
+    position: sticky;
+    top: 20px;
+}
+.calendar-widget h3 {
+    margin: 0 0 20px;
+    text-align: center;
+    color: var(--champagne);
+    font-size: 1.15em;
+}
+.calendar-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.calendar-nav button {
+    background: transparent;
+    border: 1px solid var(--border-glass);
+    color: var(--text-muted);
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: all 0.2s;
+}
+.calendar-nav button:hover { border-color: var(--champagne); color: var(--champagne); }
+.calendar-nav .month-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-transform: capitalize;
+}
+.calendar-weekdays, .calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+}
+.calendar-weekdays div {
+    text-align: center;
+    font-size: 0.75em;
+    color: var(--text-dim);
+    padding: 6px 0;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.calendar-day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9em;
+    color: var(--text-muted);
+    transition: all 0.2s;
+    position: relative;
+    border: 1px solid transparent;
+}
+.calendar-day:hover { background: var(--card-glass-strong); color: var(--text-primary); }
+.calendar-day.other-month { color: var(--text-dim); opacity: 0.4; }
+.calendar-day.today { border-color: var(--champagne); }
+.calendar-day.selected {
+    background: linear-gradient(135deg, var(--amethyst), #7E22CE);
+    color: white; font-weight: 700;
+    box-shadow: 0 4px 12px rgba(168, 85, 247, 0.5);
+}
+.calendar-day.has-bookings::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--emerald-soft);
+}
+.calendar-day.selected.has-bookings::after { background: var(--champagne-soft); }
+
+/* ---------- Панель дня ---------- */
+.day-panel {
+    background: var(--card-glass);
+    border: 1px solid var(--border-glass);
+    border-radius: 20px;
+    padding: 24px;
+}
+.day-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-soft);
+    flex-wrap: wrap; gap: 10px;
+}
+.day-panel-header h3 {
+    margin: 0; color: var(--champagne);
+    font-size: 1.15em; text-transform: capitalize;
+}
+.day-stats { display: flex; gap: 10px; font-size: 0.85em; flex-wrap: wrap; }
+.day-stat {
+    padding: 5px 12px; border-radius: 20px;
+    background: var(--card-glass-strong);
+    border: 1px solid var(--border-glass);
+    color: var(--text-muted);
+}
+.day-stat b { color: var(--champagne); }
+
+/* ---------- Строки часов ---------- */
+.hours-list { display: flex; flex-direction: column; gap: 8px; }
+.hour-row {
+    display: grid;
+    grid-template-columns: 70px 1fr;
+    gap: 15px; align-items: center;
+    padding: 12px 15px; border-radius: 12px;
+    border: 1px solid transparent;
+    transition: all 0.2s; cursor: pointer;
+}
+.hour-row:hover { background: var(--card-glass-strong); }
+.hour-time {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700; color: var(--text-primary);
+    font-size: 1.05em;
+}
+.hour-status {
+    padding: 10px 16px; border-radius: 8px;
+    font-size: 0.9em;
+    display: flex; justify-content: space-between;
+    align-items: center; gap: 12px;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+}
+.hour-status.status-free {
+    background: rgba(52, 211, 153, 0.1);
+    color: var(--st-free);
+    border: 1px solid rgba(52, 211, 153, 0.3);
+    justify-content: center;
+}
+.hour-status.status-pending {
+    background: rgba(251, 191, 36, 0.12);
+    color: var(--st-pending);
+    border: 1px solid rgba(251, 191, 36, 0.4);
+}
+.hour-status.status-confirmed {
+    background: rgba(168, 85, 247, 0.15);
+    color: var(--amethyst-soft);
+    border: 1px solid rgba(168, 85, 247, 0.5);
+}
+.hour-status.status-done {
+    background: rgba(75, 85, 99, 0.25);
+    color: #9ca3af;
+    border: 1px solid rgba(75, 85, 99, 0.4);
+    opacity: 0.75;
+}
+.hour-status.status-cancelled {
+    background: rgba(239, 68, 68, 0.1);
+    color: #fca5a5;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    text-decoration: line-through;
+}
+.hour-info {
+    display: flex; flex-wrap: wrap;
+    gap: 4px 14px; align-items: center;
+    min-width: 0;
+}
+.hour-client {
+    font-weight: 700; color: var(--text-primary); font-size: 1em;
+}
+.hour-phone { font-size: 0.85em; color: var(--text-muted); opacity: 0.9; }
+.hour-service { font-size: 0.9em; color: var(--text-muted); }
+.hour-label {
+    font-size: 0.8em; opacity: 0.9;
+    white-space: nowrap; margin-left: auto;
+}
+.hour-label-cont { font-style: italic; opacity: 0.7; }
+
+/* ---------- Редактор прайса ---------- */
+.services-editor {
+    background: var(--card-glass);
+    border: 1px solid var(--border-glass);
+    border-radius: 20px;
+    padding: 24px;
+}
+.services-editor-header {
+    display: flex; justify-content: space-between;
+    align-items: center; margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-soft);
+    flex-wrap: wrap; gap: 12px;
+}
+.services-editor-header h3 { margin: 0; color: var(--champagne); }
+.admin-services-list { display: flex; flex-direction: column; gap: 10px; }
+.service-edit-card {
+    display: grid; grid-template-columns: 1fr auto;
+    gap: 12px; align-items: center;
+    padding: 14px; background: rgba(0,0,0,0.25);
+    border: 1px solid var(--border-soft);
+    border-radius: 12px; transition: all 0.3s;
+}
+.service-edit-card:hover { border-color: rgba(212, 175, 55, 0.35); }
+.service-edit-card.saved {
+    background: rgba(52, 211, 153, 0.15);
+    border-color: var(--emerald-soft);
+}
+.service-edit-fields {
+    display: grid;
+    grid-template-columns: 2fr 1fr 0.7fr 1fr;
+    gap: 10px;
+}
+.service-edit-fields input {
+    padding: 10px 12px;
+    border: 1px solid #444;
+    background: rgba(0,0,0,0.4);
+    color: var(--text-primary);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.95em;
+    width: 100%; box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+.service-edit-fields input:focus {
+    outline: none; border-color: var(--champagne);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.12);
+}
+.service-edit-actions { display: flex; gap: 6px; }
+.service-edit-actions button {
+    width: 40px; height: 40px;
+    border-radius: 8px; border: none;
+    cursor: pointer; font-size: 1em;
+    transition: all 0.2s;
+}
+.btn-save { background: var(--emerald-soft); color: var(--bg-deep); }
+.btn-save:hover { background: #6ee7b7; }
+.btn-delete-row {
+    background: rgba(239, 68, 68, 0.2);
+    color: #fca5a5;
+    border: 1px solid rgba(239, 68, 68, 0.4) !important;
+}
+.btn-delete-row:hover { background: rgba(239, 68, 68, 0.4); color: white; }
+
+/* ---------- Модальное окно ---------- */
+.modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.85);
+    display: none; align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(8px);
+    padding: 20px;
+}
+.modal-overlay.active { display: flex; }
+.modal-card {
+    background: var(--bg-panel);
+    border: 1px solid var(--champagne);
+    border-radius: 20px;
+    padding: 30px; max-width: 480px; width: 100%;
+    box-shadow: 0 20px 60px rgba(212, 175, 55, 0.2);
+    max-height: 90vh; overflow-y: auto;
+}
+.modal-card h3 {
+    margin: 0 0 20px; color: var(--champagne);
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-soft);
+}
+.modal-card p { margin: 10px 0; color: var(--text-muted); }
+.modal-card p b { color: var(--text-primary); }
+.modal-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px; margin-top: 25px;
+}
+.modal-actions button {
+    padding: 12px; border-radius: 10px;
+    border: none; cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700; font-size: 0.9em;
+    transition: all 0.2s;
+}
+.btn-status { background: var(--amethyst); color: white; }
+.btn-status:hover { background: #9333EA; }
+.btn-reschedule { background: var(--champagne); color: var(--bg-deep); }
+.btn-reschedule:hover { background: var(--champagne-soft); }
+.btn-delete { background: #7f1d1d; color: #fecaca; }
+.btn-delete:hover { background: #991b1b; }
+.btn-close {
+    background: transparent; color: var(--text-muted);
+    border: 1px solid var(--border-glass) !important;
+    grid-column: 1 / -1;
+}
+.btn-close:hover {
+    border-color: var(--champagne) !important;
+    color: var(--champagne);
+}
+
+.btn-reschedule-apply {
+    display: block; width: 100%;
+    padding: 18px 24px; margin-top: 16px;
+    border: none; border-radius: 14px;
+    background: linear-gradient(135deg, var(--amethyst), #7E22CE);
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700; font-size: 1.05em;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(168, 85, 247, 0.4);
+    transition: transform 0.25s, box-shadow 0.25s;
+}
+.btn-reschedule-apply:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(168, 85, 247, 0.6);
+}
+.btn-reschedule-apply:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 12px rgba(168, 85, 247, 0.5);
+}
+
+.reschedule-box {
+    background: rgba(0,0,0,0.3);
+    border-radius: 12px;
+    padding: 16px; margin-top: 15px;
+    border: 1px solid var(--border-glass);
+}
+.reschedule-box label {
+    font-size: 0.85em; color: var(--text-muted);
+    display: block; margin-bottom: 6px;
+}
+.reschedule-box input {
+    width: 100%; padding: 10px 12px;
+    border: 1px solid #444;
+    background: rgba(0,0,0,0.5);
+    color: white; border-radius: 8px;
+    font-family: inherit; box-sizing: border-box;
+    margin-bottom: 12px;
+}
+.reschedule-box input:focus {
+    outline: none; border-color: var(--champagne);
+}
+.reschedule-box .slots-grid { margin: 8px 0; }
+
+/* ---------- Кабинет клиента ---------- */
+.client-dashboard { padding: 30px 0 80px; }
+.client-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px; align-items: start;
+}
+.client-panel {
+    background: var(--card-glass);
+    border: 1px solid var(--border-glass);
+    border-radius: 20px;
+    padding: 24px;
+}
+.client-panel h3 {
+    margin-top: 0; color: var(--champagne);
+    border-bottom: 1px solid var(--border-soft);
+    padding-bottom: 12px;
+}
+.client-panel label {
+    display: block; color: var(--text-muted);
+    font-size: 0.9em; margin: 12px 0 6px;
+}
+.client-panel input, .client-panel select {
+    width: 100%; padding: 12px;
+    border: 1px solid #444;
+    background: rgba(0,0,0,0.4);
+    color: var(--text-primary);
+    border-radius: 10px;
+    font-family: inherit; font-size: 1em;
+    box-sizing: border-box;
+}
+.client-panel input:focus, .client-panel select:focus {
+    outline: none; border-color: var(--champagne);
+}
+
+.my-bookings-list { display: flex; flex-direction: column; gap: 12px; }
+.my-booking-card {
+    padding: 16px; border-radius: 12px;
+    border: 1px solid var(--border-soft);
+    background: rgba(0,0,0,0.25);
+    transition: transform 0.2s;
+}
+.my-booking-card:hover { transform: translateX(4px); }
+.my-booking-card.status-pending { border-left: 4px solid var(--st-pending); }
+.my-booking-card.status-confirmed { border-left: 4px solid var(--st-confirmed); }
+.my-booking-card.status-done { border-left: 4px solid var(--st-done); opacity: 0.7; }
+.my-booking-card.status-cancelled { border-left: 4px solid var(--st-cancelled); opacity: 0.6; }
+.my-booking-head {
+    display: flex; justify-content: space-between;
+    align-items: baseline; margin-bottom: 6px;
+}
+.my-booking-date {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700; color: var(--text-primary);
+}
+.my-booking-time {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700; color: var(--champagne);
+    font-size: 1.1em;
+}
+.my-booking-service { color: var(--text-muted); font-size: 0.9em; margin-bottom: 6px; }
+.my-booking-status { font-size: 0.85em; color: var(--text-dim); }
+
+/* ---------- Группировка записей ---------- */
+.my-bookings-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic; font-weight: 600;
+    font-size: 1.05em;
+    color: var(--champagne);
+    margin: 18px 0 12px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border-soft);
+}
+.my-bookings-subtitle-archive { color: var(--text-dim); margin-top: 30px; }
+.my-bookings-group { display: flex; flex-direction: column; gap: 12px; }
+.my-bookings-group-archive .my-booking-card { opacity: 0.65; }
+.my-bookings-group-archive .my-booking-card:hover { opacity: 1; }
+.my-booking-consult {
+    border-left: 4px solid var(--st-pending);
+    background: rgba(251, 191, 36, 0.06);
+}
+
+/* ============================================================
+   АДМИН И КАБИНЕТ — ПЛАНШЕТ (≤ 900px)
+   ============================================================ */
+
+@media (max-width: 900px) {
+    .admin-layout { grid-template-columns: 1fr; }
+    .client-layout { grid-template-columns: 1fr; }
+    .calendar-widget { position: static; }
+    .admin-tabs { gap: 8px; }
+    .admin-tab { padding: 10px 18px; font-size: 0.9em; }
+}
+
+/* ============================================================
+   АДМИН И КАБИНЕТ — ТЕЛЕФОН (≤ 600px)
+   ============================================================ */
+
+@media (max-width: 600px) {
+    .admin-dashboard { padding: 14px 0 40px; }
+    .admin-dashboard h1 { font-size: 1.25em; margin: 0 0 6px; }
+    .admin-dashboard > p {
+        font-size: 0.85em; padding: 0 14px;
+        margin: 0 0 14px !important; line-height: 1.4;
+    }
+
+    .admin-tabs {
+        display: grid; grid-template-columns: 1fr 1fr;
+        gap: 6px; padding: 0 14px; margin-bottom: 16px;
+    }
+    .admin-tab { padding: 10px 8px; font-size: 0.8em; border-radius: 20px; }
+
+    .calendar-widget { padding: 14px; border-radius: 16px; margin-bottom: 12px; }
+    .calendar-widget h3 { font-size: 0.95em; margin-bottom: 10px; }
+    .calendar-nav { margin-bottom: 10px; }
+    .calendar-nav button { width: 28px; height: 28px; font-size: 0.9em; }
+    .calendar-nav .month-title { font-size: 0.85em; }
+    .calendar-weekdays div { font-size: 0.7em; padding: 4px 0; }
+    .calendar-day { font-size: 0.8em; border-radius: 7px; }
+
+    .day-panel { padding: 14px; border-radius: 16px; }
+    .day-panel-header {
+        flex-direction: column; align-items: flex-start;
+        gap: 6px; margin-bottom: 12px; padding-bottom: 10px;
+    }
+    .day-panel-header h3 { font-size: 0.95em; }
+    .day-stats { gap: 4px; }
+    .day-stat { font-size: 0.72em; padding: 3px 8px; }
+
+    .hours-list { gap: 5px; }
+    .hour-row {
+        grid-template-columns: 48px 1fr;
+        gap: 6px; padding: 8px 6px; border-radius: 10px;
+    }
+    .hour-time { font-size: 0.85em; }
+    .hour-status {
+        padding: 7px 10px; font-size: 0.78em;
+        flex-direction: column; align-items: flex-start;
+        gap: 3px; border-radius: 7px;
+    }
+    .hour-info { flex-direction: column; gap: 1px; align-items: flex-start; }
+    .hour-client { font-size: 0.9em; }
+    .hour-service, .hour-phone { font-size: 0.75em; }
+    .hour-label { margin-left: 0; font-size: 0.7em; }
+
+    .services-editor { padding: 14px; border-radius: 16px; }
+    .services-editor-header {
+        flex-direction: column; align-items: stretch;
+        gap: 8px; margin-bottom: 12px; padding-bottom: 10px;
+    }
+    .services-editor-header h3 { font-size: 1em; }
+    .admin-services-list { gap: 8px; }
+    .service-edit-card {
+        grid-template-columns: 1fr; gap: 6px;
+        padding: 10px; border-radius: 10px;
+    }
+    .service-edit-fields { grid-template-columns: 1fr 1fr; gap: 6px; }
+    .service-edit-fields input {
+        font-size: 0.85em; padding: 8px 10px; border-radius: 6px;
+    }
+    .service-edit-actions { flex-direction: row; justify-content: flex-end; }
+    .service-edit-actions button { width: 34px; height: 34px; }
+
+    .slots-editor { padding: 14px; border-radius: 16px; }
+    .slots-editor-section + .slots-editor-section {
+        margin-top: 20px; padding-top: 16px;
+    }
+    .week-nav { margin-bottom: 10px; gap: 10px; }
+    .week-grid { grid-template-columns: 48px repeat(7, 1fr); gap: 1px; }
+    .week-cell { font-size: 0.68em; padding: 3px 2px; }
+    .week-slot { height: 26px; }
+    .week-time { font-size: 0.62em; padding-right: 3px; }
+    .week-title { font-size: 0.85em; min-width: 0; }
+    .week-nav button { width: 28px; height: 28px; font-size: 0.85em; }
+    .timeline-legend { gap: 14px; font-size: 0.8em; margin-top: 12px; }
+    .legend-dot { width: 11px; height: 11px; }
+    .slot-templates-list { gap: 6px; }
+    .slot-template-chip { padding: 6px 10px; font-size: 0.85em; }
+
+    .modal-card { padding: 18px 14px; border-radius: 16px; max-height: 94vh; }
+    .modal-card h3 { font-size: 1.05em; margin-bottom: 12px; padding-bottom: 10px; }
+    .modal-card p { margin: 6px 0; font-size: 0.9em; }
+    .modal-actions { grid-template-columns: 1fr; gap: 6px; margin-top: 16px; }
+    .modal-actions button { padding: 11px; font-size: 0.85em; }
+
+    .reschedule-box { padding: 12px; margin-top: 10px; }
+    .reschedule-box label { font-size: 0.8em; margin-bottom: 4px; }
+    .reschedule-box input { padding: 9px 10px; font-size: 0.9em; }
+    .reschedule-box .slots-grid { grid-template-columns: repeat(4, 1fr); gap: 4px; }
+
+    .client-dashboard { padding: 14px 0 40px; }
+    .client-dashboard h1 { font-size: 1.2em; padding: 0 14px; margin: 0 0 6px; }
+    .client-dashboard > p {
+        font-size: 0.85em; padding: 0 14px;
+        margin: 0 0 14px !important; line-height: 1.4;
+    }
+
+    .client-layout { gap: 12px; }
+    .client-panel { padding: 14px; border-radius: 16px; }
+    .client-panel h3 { font-size: 0.95em; padding-bottom: 8px; margin-bottom: 10px; }
+    .client-panel label { margin: 8px 0 4px; font-size: 0.85em; }
+    .client-panel input, .client-panel select { padding: 11px; font-size: 0.9em; }
+
+    .my-bookings-list { gap: 8px; }
+    .my-booking-card { padding: 12px; border-radius: 10px; }
+    .my-booking-head { margin-bottom: 4px; }
+    .my-booking-date { font-size: 0.8em; }
+    .my-booking-time { font-size: 0.95em; }
+    .my-booking-service { font-size: 0.85em; margin-bottom: 4px; }
+    .my-booking-status { font-size: 0.78em; }
+    .my-bookings-subtitle { font-size: 0.9em; margin: 12px 0 8px; }
+    .my-bookings-subtitle-archive { margin-top: 18px; }
+    .my-bookings-group { gap: 8px; }
+
+    .client-panel .btn { width: 100%; padding: 13px; font-size: 0.95em; margin-top: 8px; }
+}

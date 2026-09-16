@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход | Орхидея</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="glass.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+<div class="frame-left" aria-hidden="true"></div>
+<div class="frame-right" aria-hidden="true"></div>
+
+<header class="main-header">
+    <nav class="container">
+        <a href="index.html" class="logo">ОРХИДЕЯ</a>
+        <ul>
+            <li><a href="index.html">На главную</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="container login-page">
+    <h1 class="login-title">Личный кабинет</h1>
+    <p class="login-subtitle" id="login-subtitle">
+        Войдите, чтобы увидеть свои записи
+    </p>
+
+    <div id="step1-box" class="login-form-box active">
+        <form onsubmit="handleStep1(event)">
+            <input type="text" name="name" placeholder="Ваше имя" required autocomplete="name">
+            <input type="tel" name="phone" placeholder="+7 (___) ___-__-__" required autocomplete="tel">
+            <button type="submit" class="btn btn-primary" style="width:100%;">Продолжить</button>
+        </form>
+        <p class="login-hint">
+            <i class="fas fa-info-circle"></i>
+            Используйте тот же телефон, что и при записи, чтобы увидеть свои заявки.
+        </p>
+    </div>
+
+    <div id="step2-box" class="login-form-box">
+        <h3>Вход для администратора</h3>
+        <p>Этот номер закреплён за администратором. Введите пароль.</p>
+        <form onsubmit="handleStep2(event)">
+            <input type="password" name="password" placeholder="Пароль" required autocomplete="current-password">
+            <button type="submit" class="btn btn-primary" style="width:100%;">Войти</button>
+        </form>
+        <p class="login-hint">
+            <a href="#" onclick="backToStep1();return false;" style="color:var(--champagne);">
+                ← Вернуться к вводу телефона
+            </a>
+        </p>
+    </div>
+
+    <div id="login-error" class="login-error"></div>
+</div>
+
+<script src="auth.js"></script>
+<script>
+    /* Если уже залогинен — сразу в кабинет */
+    (function autoRedirectIfLoggedIn() {
+        try {
+            var session = getSession();
+            if (session && session.role) {
+                window.location.replace('cabinet.html');
+            }
+        } catch (e) {}
+    })();
+
+    function showError(msg) {
+        const el = document.getElementById('login-error');
+        el.textContent = msg;
+        el.style.display = 'block';
+    }
+    function hideError() {
+        document.getElementById('login-error').style.display = 'none';
+    }
+
+    function handleStep1(e) {
+        e.preventDefault();
+        hideError();
+        const form = e.target;
+        const res = loginStep1(form.name.value, form.phone.value);
+
+        if (!res.ok) {
+            showError(res.error);
+            return;
+        }
+
+        if (res.role === 'client') {
+            window.location.href = 'cabinet.html';
+            return;
+        }
+
+        if (res.needPassword) {
+            document.getElementById('step1-box').classList.remove('active');
+            document.getElementById('step2-box').classList.add('active');
+            document.getElementById('login-subtitle').textContent =
+                'Введите пароль администратора';
+            setTimeout(() => {
+                document.querySelector('#step2-box input[name="password"]').focus();
+            }, 100);
+        }
+    }
+
+    function handleStep2(e) {
+        e.preventDefault();
+        hideError();
+        const form = e.target;
+        const res = loginStep2Admin(form.password.value);
+
+        if (!res.ok) {
+            showError(res.error);
+            form.password.value = '';
+            form.password.focus();
+            return;
+        }
+        window.location.href = 'cabinet.html';
+    }
+
+    function backToStep1() {
+        hideError();
+        document.getElementById('step2-box').classList.remove('active');
+        document.getElementById('step1-box').classList.add('active');
+        document.getElementById('login-subtitle').textContent =
+            'Войдите, чтобы увидеть свои записи';
+    }
+</script>
+</body>
+</html>

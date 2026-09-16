@@ -1,0 +1,676 @@
+/* ============================================================
+   ОПОВЕЩЕНИЕ О ЗАЯВКАХ НА КОНСУЛЬТАЦИЮ
+   ============================================================ */
+
+#admin-consult-alert { margin-bottom: 24px; }
+#admin-consult-alert:empty { display: none; }
+
+/* ============ КРУПНЫЙ ВОСКЛИЦАТЕЛЬНЫЙ ЗНАК ============ */
+
+.consult-bang {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 26px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #FFF5C9 0%, #FBBF24 30%, #D97706 75%, #7C2D12 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-shadow:
+        0 0 40px rgba(251, 191, 36, 0.55),
+        0 0 80px rgba(251, 191, 36, 0.35),
+        inset 0 4px 8px rgba(255, 255, 255, 0.6),
+        inset 0 -6px 12px rgba(0, 0, 0, 0.3);
+    animation: bangPulse 1.6s ease-in-out infinite;
+}
+.consult-bang span {
+    font-family: 'Playfair Display', serif;
+    font-size: 5em;
+    font-weight: 900;
+    color: #7C2D12;
+    line-height: 1;
+    text-shadow:
+        0 2px 4px rgba(255, 255, 255, 0.6),
+        0 -2px 4px rgba(0, 0, 0, 0.4);
+    transform: translateY(-4px);
+}
+.consult-bang::before,
+.consult-bang::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    border: 3px solid rgba(251, 191, 36, 0.6);
+    inset: -8px;
+    animation: bangRing 2s ease-out infinite;
+}
+.consult-bang::after { animation-delay: 1s; }
+
+@keyframes bangPulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow:
+            0 0 40px rgba(251, 191, 36, 0.55),
+            0 0 80px rgba(251, 191, 36, 0.35),
+            inset 0 4px 8px rgba(255, 255, 255, 0.6),
+            inset 0 -6px 12px rgba(0, 0, 0, 0.3);
+    }
+    50% {
+        transform: scale(1.06);
+        box-shadow:
+            0 0 60px rgba(251, 191, 36, 0.8),
+            0 0 120px rgba(251, 191, 36, 0.5),
+            inset 0 4px 8px rgba(255, 255, 255, 0.7),
+            inset 0 -6px 12px rgba(0, 0, 0, 0.3);
+    }
+}
+@keyframes bangRing {
+    0%   { transform: scale(1);   opacity: 1; }
+    100% { transform: scale(1.7); opacity: 0; }
+}
+
+/* ============ КАРТОЧКИ ЗАЯВОК С ПЛАМЕНЕМ ============ */
+
+.consult-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.consult-card {
+    position: relative;
+    border-radius: 18px;
+    padding: 2px;
+    background: transparent;
+    overflow: hidden;
+    animation: flameMove 3s linear infinite, flameGlow 1.8s ease-in-out infinite;
+    box-shadow:
+        0 0 30px rgba(251, 191, 36, 0.55),
+        0 0 60px rgba(220, 38, 38, 0.35);
+}
+@keyframes flameMove {
+    0% {
+        background: conic-gradient(
+            from 0deg,
+            #FBBF24, #F59E0B, #DC2626, #FBBF24, #FDE68A,
+            #F59E0B, #DC2626, #FBBF24
+        );
+    }
+    100% {
+        background: conic-gradient(
+            from 360deg,
+            #FBBF24, #F59E0B, #DC2626, #FBBF24, #FDE68A,
+            #F59E0B, #DC2626, #FBBF24
+        );
+    }
+}
+@keyframes flameGlow {
+    0%, 100% {
+        box-shadow:
+            0 0 30px rgba(251, 191, 36, 0.55),
+            0 0 60px rgba(220, 38, 38, 0.35);
+    }
+    50% {
+        box-shadow:
+            0 0 45px rgba(251, 191, 36, 0.85),
+            0 0 90px rgba(220, 38, 38, 0.55);
+    }
+}
+
+.consult-content {
+    position: relative;
+    background: linear-gradient(180deg, #2A0F2E 0%, #1B0A1F 100%);
+    border-radius: 16px;
+    padding: 18px 22px;
+    display: grid;
+    grid-template-columns: 60px 1fr auto;
+    gap: 18px;
+    align-items: center;
+    z-index: 1;
+}
+
+.consult-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #FBBF24 0%, #D97706 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #7C2D12;
+    font-size: 1.6em;
+    box-shadow:
+        0 0 20px rgba(251, 191, 36, 0.7),
+        inset 0 2px 4px rgba(255, 255, 255, 0.5);
+    animation: phoneRing 2.5s ease-in-out infinite;
+}
+@keyframes phoneRing {
+    0%, 100% { transform: rotate(0deg); }
+    5%       { transform: rotate(-12deg); }
+    10%      { transform: rotate(12deg); }
+    15%      { transform: rotate(-8deg); }
+    20%      { transform: rotate(8deg); }
+    25%      { transform: rotate(0deg); }
+}
+
+.consult-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+.consult-name {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-weight: 700;
+    font-size: 1.2em;
+    color: #FDE68A;
+    text-shadow: 0 0 12px rgba(251, 191, 36, 0.5);
+}
+.consult-phone {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 1.1em;
+    color: #FBBF24;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.consult-phone:hover {
+    color: #FFF5C9;
+    text-decoration: underline;
+}
+.consult-time {
+    font-size: 0.8em;
+    color: rgba(255, 255, 255, 0.55);
+}
+.consult-time i { margin-right: 4px; }
+
+.consult-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.consult-call-btn,
+.consult-done-btn {
+    padding: 10px 16px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 0.82em;
+    transition: all 0.2s;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+}
+.consult-call-btn {
+    background: linear-gradient(180deg, #FDE68A 0%, #F59E0B 100%);
+    color: #7C2D12;
+    box-shadow:
+        0 4px 12px rgba(251, 191, 36, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+.consult-call-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(251, 191, 36, 0.7);
+}
+.consult-done-btn {
+    background: rgba(52, 211, 153, 0.15);
+    color: #6ee7b7;
+    border: 1px solid rgba(52, 211, 153, 0.5);
+}
+.consult-done-btn:hover {
+    background: rgba(52, 211, 153, 0.3);
+    color: #fff;
+}
+
+/* ============ СЧЁТЧИК В ЗАГОЛОВКЕ ВКЛАДКИ ============ */
+
+.admin-tab-counter {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 22px;
+    height: 22px;
+    padding: 0 7px;
+    margin-left: 8px;
+    background: linear-gradient(135deg, #FBBF24, #DC2626);
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 0.75em;
+    border-radius: 11px;
+    box-shadow:
+        0 0 12px rgba(251, 191, 36, 0.7),
+        0 0 20px rgba(220, 38, 38, 0.5);
+    animation: counterPulse 1.5s ease-in-out infinite;
+}
+@keyframes counterPulse {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.15); }
+}
+
+/* ============================================================
+   ДИАЛОГ «ЧТО СДЕЛАТЬ С ЗАЯВКОЙ»
+   ============================================================ */
+
+.consult-dialog-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 5, 15, 0.7);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 4000;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+.consult-dialog-overlay.active { opacity: 1; }
+
+.consult-dialog {
+    background: rgba(42, 15, 46, 0.92);
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    border-top-color: rgba(255, 235, 150, 0.6);
+    border-radius: 22px;
+    padding: 32px 32px 24px;
+    max-width: 440px;
+    width: 100%;
+    backdrop-filter: blur(30px) saturate(180%);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.65),
+        0 0 60px rgba(251, 191, 36, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    text-align: center;
+    transform: translateY(20px) scale(0.95);
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.consult-dialog-overlay.active .consult-dialog {
+    transform: translateY(0) scale(1);
+}
+
+.consult-dialog-icon {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #FBBF24 0%, #D97706 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #7C2D12;
+    font-size: 1.9em;
+    box-shadow:
+        0 0 30px rgba(251, 191, 36, 0.6),
+        inset 0 2px 4px rgba(255, 255, 255, 0.5);
+    animation: phoneRing 2.5s ease-in-out infinite;
+}
+
+.consult-dialog h3 {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: #FDE68A;
+    margin: 0 0 6px;
+    font-size: 1.35em;
+}
+.consult-dialog-phone {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: #FBBF24;
+    font-size: 1.1em;
+    margin: 0 0 18px;
+}
+.consult-dialog-q {
+    color: var(--text-muted);
+    margin: 0 0 22px;
+    font-size: 0.95em;
+}
+
+.consult-dialog-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+.consult-dialog-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 18px 12px;
+    border-radius: 14px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 0.85em;
+    line-height: 1.25;
+    transition: all 0.2s;
+    text-align: center;
+    min-height: 110px;
+}
+.consult-dialog-btn i { font-size: 1.8em; }
+.consult-dialog-btn-primary {
+    background: linear-gradient(135deg, #FBBF24, #D97706);
+    color: #3B1740;
+    box-shadow:
+        0 8px 24px rgba(251, 191, 36, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+.consult-dialog-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(251, 191, 36, 0.65);
+}
+.consult-dialog-btn-outline {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+.consult-dialog-btn-outline:hover {
+    background: rgba(52, 211, 153, 0.15);
+    border-color: rgba(52, 211, 153, 0.5);
+    color: #6ee7b7;
+    transform: translateY(-2px);
+}
+
+.consult-dialog-cancel {
+    background: transparent;
+    border: none;
+    color: var(--text-dim);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9em;
+    cursor: pointer;
+    padding: 8px;
+    transition: color 0.2s;
+}
+.consult-dialog-cancel:hover { color: #fca5a5; }
+
+/* ============================================================
+   МОДАЛКА ЗАПИСИ ИЗ КОНСУЛЬТАЦИИ
+   ============================================================ */
+
+.consult-booking-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 5, 15, 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 4100;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    overflow-y: auto;
+}
+.consult-booking-overlay.active { opacity: 1; }
+
+.consult-booking-card {
+    background: rgba(42, 15, 46, 0.95);
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    border-top-color: rgba(255, 235, 150, 0.6);
+    border-radius: 22px;
+    padding: 30px 30px 26px;
+    max-width: 500px;
+    width: 100%;
+    backdrop-filter: blur(30px) saturate(180%);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.65),
+        0 0 40px rgba(168, 85, 247, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    position: relative;
+    transform: translateY(20px);
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    max-height: 92vh;
+    overflow-y: auto;
+}
+.consult-booking-overlay.active .consult-booking-card {
+    transform: translateY(0);
+}
+
+.consult-booking-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 1em;
+}
+.consult-booking-close:hover {
+    background: rgba(239, 68, 68, 0.25);
+    border-color: #ef4444;
+    color: #fff;
+    transform: rotate(90deg);
+}
+
+.consult-booking-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: #FDE68A;
+    margin: 0 0 6px;
+    font-size: 1.35em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.consult-booking-card h3 i {
+    color: #FBBF24;
+    font-size: 1em;
+}
+.consult-booking-sub {
+    color: var(--text-muted);
+    font-size: 0.9em;
+    margin: 0 0 20px;
+    line-height: 1.5;
+}
+
+.consult-booking-data {
+    background: rgba(251, 191, 36, 0.08);
+    border: 1px solid rgba(251, 191, 36, 0.25);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 22px;
+}
+.consult-booking-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 6px 0;
+    flex-wrap: wrap;
+}
+.consult-booking-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85em;
+    color: var(--text-muted);
+    font-weight: 600;
+    display: block;
+    margin: 12px 0 6px;
+}
+.consult-booking-value {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+.consult-booking-data .consult-booking-label {
+    margin: 0;
+    color: #FBBF24;
+}
+
+.consult-booking-card select,
+.consult-booking-card input[type="date"] {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    background: rgba(0, 0, 0, 0.35);
+    color: var(--text-primary);
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 1em;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+.consult-booking-card select:focus,
+.consult-booking-card input[type="date"]:focus {
+    outline: none;
+    border-color: #FBBF24;
+    box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.2);
+}
+
+.consult-booking-submit {
+    width: 100%;
+    padding: 18px;
+    margin-top: 22px;
+    border-radius: 14px;
+    border: none;
+    background: linear-gradient(135deg, #FBBF24, #D97706);
+    color: #3B1740;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 1.05em;
+    cursor: pointer;
+    box-shadow:
+        0 8px 24px rgba(251, 191, 36, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.consult-booking-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(251, 191, 36, 0.65);
+}
+
+/* ============================================================
+   ОПОВЕЩЕНИЯ — ТЕЛЕФОН
+   ============================================================ */
+
+@media (max-width: 600px) {
+    #admin-consult-alert { margin-bottom: 12px; }
+
+    .consult-bang {
+        width: 64px;
+        height: 64px;
+        margin-bottom: 10px;
+    }
+    .consult-bang span {
+        font-size: 2.6em;
+        transform: translateY(-2px);
+    }
+    .consult-bang::before,
+    .consult-bang::after { inset: -4px; }
+
+    .consult-list { gap: 8px; }
+    .consult-content {
+        grid-template-columns: 38px 1fr;
+        gap: 8px;
+        padding: 10px;
+        border-radius: 12px;
+    }
+    .consult-icon {
+        width: 38px;
+        height: 38px;
+        font-size: 1em;
+    }
+    .consult-text { gap: 2px; }
+    .consult-name { font-size: 0.92em; }
+    .consult-phone { font-size: 0.88em; }
+    .consult-time { font-size: 0.72em; }
+
+    .consult-actions {
+        grid-column: 1 / -1;
+        flex-direction: row;
+        gap: 6px;
+        margin-top: 4px;
+    }
+    .consult-call-btn,
+    .consult-done-btn {
+        flex: 1;
+        padding: 8px 6px;
+        font-size: 0.72em;
+        gap: 5px;
+        border-radius: 7px;
+    }
+
+    .consult-dialog {
+        padding: 20px 16px 14px;
+        border-radius: 16px;
+    }
+    .consult-dialog-icon {
+        width: 54px;
+        height: 54px;
+        font-size: 1.4em;
+        margin-bottom: 12px;
+    }
+    .consult-dialog h3 { font-size: 1.05em; margin-bottom: 4px; }
+    .consult-dialog-phone { font-size: 0.95em; margin-bottom: 12px; }
+    .consult-dialog-q { margin-bottom: 14px; font-size: 0.9em; }
+    .consult-dialog-actions { grid-template-columns: 1fr; gap: 8px; margin-bottom: 8px; }
+    .consult-dialog-btn {
+        flex-direction: row;
+        min-height: 0;
+        padding: 12px 14px;
+        gap: 10px;
+        font-size: 0.82em;
+        border-radius: 12px;
+    }
+    .consult-dialog-btn i { font-size: 1.3em; }
+    .consult-dialog-cancel { font-size: 0.82em; padding: 6px; }
+
+    .consult-booking-card {
+        padding: 18px 14px 16px;
+        border-radius: 16px;
+    }
+    .consult-booking-card h3 {
+        font-size: 1.05em;
+        margin-bottom: 4px;
+    }
+    .consult-booking-sub {
+        font-size: 0.85em;
+        margin-bottom: 12px;
+        line-height: 1.4;
+    }
+    .consult-booking-data {
+        padding: 10px 12px;
+        margin-bottom: 12px;
+        border-radius: 10px;
+    }
+    .consult-booking-row { font-size: 0.85em; padding: 3px 0; }
+    .consult-booking-label { font-size: 0.8em; margin: 8px 0 4px; }
+    .consult-booking-card select,
+    .consult-booking-card input[type="date"] {
+        padding: 10px 12px;
+        font-size: 0.9em;
+        border-radius: 10px;
+    }
+    .consult-booking-card .slots-grid { grid-template-columns: repeat(4, 1fr); gap: 4px; }
+    .consult-booking-submit {
+        padding: 13px;
+        font-size: 0.95em;
+        margin-top: 14px;
+        border-radius: 12px;
+    }
+    .consult-booking-close {
+        width: 32px;
+        height: 32px;
+        top: 10px;
+        right: 10px;
+        font-size: 0.9em;
+    }
+}

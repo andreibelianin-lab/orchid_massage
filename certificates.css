@@ -1,0 +1,416 @@
+/* ============================================================
+   ПОДАРОЧНЫЕ СЕРТИФИКАТЫ
+   ============================================================ */
+
+.cert-section {
+    padding: 80px 0 60px;
+    background: rgba(0,0,0,0.35);
+    position: relative; overflow: hidden;
+}
+.cert-section h2 { margin-bottom: 20px; }
+.cert-subtitle {
+    text-align: center;
+    color: var(--text-muted);
+    font-family: 'Cormorant', serif;
+    font-style: italic;
+    font-size: 1.15em;
+    margin: 0 0 50px;
+    letter-spacing: 0.5px;
+}
+
+/* ============ КАРУСЕЛЬ НА ГЛАВНОЙ ============ */
+.cert-carousel {
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    gap: 20px; max-width: 1100px; margin: 0 auto;
+    perspective: 1600px;
+}
+.cert-stage {
+    position: relative; flex: 1;
+    height: 480px;
+    display: flex; align-items: center; justify-content: center;
+    transform-style: preserve-3d;
+}
+.cert-arrow {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: var(--text-muted);
+    font-size: 1.4em; cursor: pointer;
+    transition: all 0.25s;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    user-select: none; z-index: 3;
+}
+.cert-arrow:hover {
+    background: rgba(212, 175, 55, 0.15);
+    border-color: var(--champagne);
+    color: var(--champagne);
+    transform: scale(1.08);
+}
+
+.cert-card {
+    position: absolute;
+    width: 380px; max-width: 80vw;
+    border-radius: 18px; overflow: hidden;
+    cursor: pointer;
+    transition:
+        transform 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+        opacity 0.6s ease,
+        box-shadow 0.4s ease;
+    transform-style: preserve-3d;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.55),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+.cert-card img {
+    display: block; width: 100%; height: auto;
+    aspect-ratio: 3 / 4; object-fit: cover;
+    transition: transform 0.6s ease;
+    pointer-events: none;
+}
+.cert-card::after {
+    content: '';
+    position: absolute;
+    top: -50%; left: -100%;
+    width: 60%; height: 200%;
+    background: linear-gradient(100deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.35) 50%,
+        transparent 100%);
+    transform: skewX(-20deg);
+    pointer-events: none;
+    z-index: 2;
+}
+.cert-card.is-active::after { animation: certShine 4.5s ease-in-out infinite; }
+@keyframes certShine {
+    0%   { left: -100%; }
+    40%  { left: 150%; }
+    100% { left: 150%; }
+}
+
+.cert-card.pos-active {
+    transform: translateX(0) translateZ(80px) rotateY(0deg);
+    opacity: 1; z-index: 5;
+}
+.cert-card.pos-prev {
+    transform: translateX(-70%) translateZ(-100px) rotateY(35deg) scale(0.82);
+    opacity: 0.55; z-index: 2;
+}
+.cert-card.pos-next {
+    transform: translateX(70%) translateZ(-100px) rotateY(-35deg) scale(0.82);
+    opacity: 0.55; z-index: 2;
+}
+.cert-card.pos-far-left {
+    transform: translateX(-140%) translateZ(-300px) rotateY(50deg) scale(0.6);
+    opacity: 0; z-index: 1; pointer-events: none;
+}
+.cert-card.pos-far-right {
+    transform: translateX(140%) translateZ(-300px) rotateY(-50deg) scale(0.6);
+    opacity: 0; z-index: 1; pointer-events: none;
+}
+
+.cert-badge {
+    position: absolute;
+    top: 14px; right: 14px;
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #FBBF24 0%, #B8860B 70%, #8B6508 100%);
+    box-shadow:
+        0 4px 14px rgba(0, 0, 0, 0.5),
+        inset 0 1px 2px rgba(255, 255, 255, 0.5),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.3);
+    display: flex; align-items: center; justify-content: center;
+    color: #3B1740;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700; font-size: 0.7em;
+    text-align: center; line-height: 1.1;
+    z-index: 3; pointer-events: none;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.cert-badge::before {
+    content: '★';
+    position: absolute; top: 4px;
+    font-size: 0.85em; color: #FFF5C9;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.4);
+}
+
+.cert-info {
+    max-width: 520px;
+    margin: 26px auto 0;
+    text-align: center;
+    min-height: 130px;
+}
+.cert-title {
+    font-family: 'Playfair Display', serif;
+    font-style: italic; font-weight: 700;
+    font-size: 1.5em; color: var(--champagne);
+    margin: 0 0 8px; letter-spacing: 0.3px;
+}
+.cert-desc {
+    font-family: 'Cormorant', serif;
+    font-style: italic; font-size: 1.1em;
+    color: var(--text-primary);
+    line-height: 1.5; margin: 0 0 18px;
+}
+.cert-cta {
+    display: inline-flex; align-items: center;
+    gap: 10px; padding: 14px 32px;
+    border-radius: 50px;
+    background: linear-gradient(135deg, var(--amethyst), #7E22CE);
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700; font-size: 0.95em;
+    text-decoration: none;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow:
+        0 8px 24px rgba(168, 85, 247, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.35),
+        inset 0 -2px 0 rgba(0, 0, 0, 0.2);
+    transition: transform 0.25s, box-shadow 0.25s;
+}
+.cert-cta:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 12px 32px rgba(168, 85, 247, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4),
+        inset 0 -2px 0 rgba(0, 0, 0, 0.2);
+}
+.cert-dots {
+    display: flex; justify-content: center;
+    gap: 10px; margin-top: 24px;
+}
+.cert-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.25);
+    cursor: pointer; transition: all 0.25s;
+}
+.cert-dot.active {
+    background: var(--champagne);
+    box-shadow: 0 0 12px var(--champagne);
+    transform: scale(1.3);
+}
+
+/* ============ ЛАЙТБОКС ============ */
+.cert-lightbox {
+    position: fixed; inset: 0;
+    background: rgba(10, 5, 15, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    display: none; align-items: center; justify-content: center;
+    z-index: 3000; padding: 20px; cursor: zoom-out;
+}
+.cert-lightbox.active { display: flex; }
+.cert-lightbox img {
+    max-width: 90vw; max-height: 88vh;
+    border-radius: 16px;
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.7),
+        0 0 0 1px rgba(212, 175, 55, 0.35);
+    cursor: default;
+}
+
+/* ============================================================
+   РЕДАКТОР СЕРТИФИКАТОВ В АДМИНКЕ
+   ============================================================ */
+.cert-editor {
+    background: var(--card-glass);
+    border: 1px solid var(--border-glass);
+    border-radius: 20px;
+    padding: 24px;
+    max-width: 1100px; margin: 0 auto;
+}
+.cert-admin-list {
+    display: flex; flex-direction: column;
+    gap: 14px; margin-top: 20px;
+}
+.cert-edit-card {
+    display: grid;
+    grid-template-columns: 130px 1fr auto;
+    gap: 18px; align-items: start;
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-soft);
+    border-radius: 14px;
+    transition: all 0.25s;
+}
+.cert-edit-card:hover { border-color: rgba(212, 175, 55, 0.35); }
+.cert-edit-card.saved {
+    background: rgba(52, 211, 153, 0.12);
+    border-color: var(--emerald-soft);
+}
+.cert-edit-thumb {
+    width: 130px; height: 170px;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.4);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: 1px dashed var(--border-glass);
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-dim); font-size: 0.8em;
+    text-align: center; padding: 8px;
+    box-sizing: border-box;
+    cursor: pointer; position: relative;
+    overflow: hidden; transition: all 0.2s;
+}
+.cert-edit-thumb:hover {
+    border-color: var(--champagne);
+    border-style: solid;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+}
+.cert-edit-thumb::after {
+    content: '\f093';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute; inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--champagne); font-size: 1.6em;
+    opacity: 0; transition: opacity 0.2s;
+    pointer-events: none;
+}
+.cert-edit-thumb:hover::after { opacity: 1; }
+.cert-edit-fields {
+    display: flex; flex-direction: column;
+    gap: 10px; min-width: 0;
+}
+.cert-edit-fields input,
+.cert-edit-fields textarea {
+    width: 100%; padding: 10px 14px;
+    border: 1px solid #444;
+    background: rgba(0, 0, 0, 0.35);
+    color: var(--text-primary);
+    border-radius: 8px;
+    font-family: inherit; font-size: 0.95em;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+    resize: vertical;
+}
+.cert-edit-fields input:focus,
+.cert-edit-fields textarea:focus {
+    outline: none; border-color: var(--champagne);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.12);
+}
+.cert-edit-fields textarea { min-height: 60px; }
+.cert-edit-row { display: grid; grid-template-columns: 1fr 100px; gap: 10px; }
+.cert-edit-toggle {
+    display: flex; align-items: center;
+    gap: 8px; font-size: 0.88em;
+    color: var(--text-muted);
+    cursor: pointer; user-select: none;
+    margin-top: 4px;
+}
+.cert-edit-toggle input[type="checkbox"] {
+    width: 18px; height: 18px;
+    accent-color: var(--emerald-soft);
+    cursor: pointer;
+}
+.cert-edit-actions { display: flex; flex-direction: column; gap: 8px; }
+.cert-edit-actions button {
+    width: 44px; height: 44px;
+    border-radius: 10px; border: none;
+    cursor: pointer; font-size: 1em;
+    transition: all 0.2s;
+    display: flex; align-items: center; justify-content: center;
+}
+.cert-clear-photo {
+    position: absolute; top: 6px; right: 6px;
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: rgba(239, 68, 68, 0.9);
+    color: #fff;
+    border: 2px solid var(--bg-deep);
+    font-size: 0.75em; cursor: pointer;
+    display: none; align-items: center; justify-content: center;
+    z-index: 3; padding: 0; line-height: 1;
+    transition: transform 0.15s;
+}
+.cert-clear-photo:hover { transform: scale(1.15); background: #dc2626; }
+.cert-edit-thumb.has-photo .cert-clear-photo { display: flex; }
+.cert-edit-thumb.loading::before {
+    content: ''; position: absolute; inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    border-radius: 10px; z-index: 2;
+}
+.cert-edit-thumb.loading::after {
+    content: '\f110';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    animation: certSpin 0.8s linear infinite;
+    opacity: 1; color: var(--champagne);
+    font-size: 1.8em; background: transparent;
+    z-index: 3;
+}
+@keyframes certSpin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+.cert-file-input { display: none; }
+
+/* ============================================================
+   СЕРТИФИКАТЫ — ТЕЛЕФОН
+   ============================================================ */
+@media (max-width: 600px) {
+    .cert-section { padding: 32px 0 24px; }
+    .cert-section h2 { margin-bottom: 12px; }
+    .cert-subtitle {
+        font-size: 0.95em; margin: 0 0 20px; padding: 0 14px;
+    }
+    .cert-carousel { gap: 6px; }
+    .cert-arrow {
+        width: 34px; height: 34px; font-size: 1em;
+        background: rgba(255, 255, 255, 0.08);
+    }
+    .cert-stage { height: 260px; perspective: 1000px; }
+    .cert-card { width: 180px; max-width: 62vw; border-radius: 12px; }
+    .cert-badge {
+        width: 38px; height: 38px; font-size: 0.5em;
+        top: 6px; right: 6px;
+    }
+    .cert-card.pos-prev {
+        transform: translateX(-55%) translateZ(-90px) rotateY(25deg) scale(0.68);
+    }
+    .cert-card.pos-next {
+        transform: translateX(55%) translateZ(-90px) rotateY(-25deg) scale(0.68);
+    }
+    .cert-info { margin-top: 12px; min-height: 0; padding: 0 14px; }
+    .cert-title { font-size: 1.05em; margin-bottom: 4px; }
+    .cert-desc { font-size: 0.9em; margin-bottom: 10px; line-height: 1.4; }
+    .cert-cta {
+        padding: 11px 22px; font-size: 0.88em;
+        width: 100%; justify-content: center;
+        box-sizing: border-box;
+    }
+    .cert-dots { margin-top: 12px; gap: 6px; }
+    .cert-dot { width: 8px; height: 8px; }
+
+    .cert-editor { padding: 14px; border-radius: 16px; }
+    .cert-admin-list { gap: 8px; margin-top: 12px; }
+    .cert-edit-card {
+        grid-template-columns: 80px 1fr;
+        gap: 10px; padding: 10px; border-radius: 10px;
+    }
+    .cert-edit-thumb { width: 80px; height: 105px; border-radius: 8px; }
+    .cert-edit-fields { gap: 6px; }
+    .cert-edit-fields input,
+    .cert-edit-fields textarea {
+        font-size: 0.85em; padding: 8px 10px; border-radius: 6px;
+    }
+    .cert-edit-fields textarea { min-height: 44px; }
+    .cert-edit-row { grid-template-columns: 1fr; gap: 6px; }
+    .cert-edit-toggle { font-size: 0.82em; }
+    .cert-edit-actions {
+        grid-column: 1 / -1; flex-direction: row;
+        justify-content: flex-end; gap: 6px;
+    }
+    .cert-edit-actions button { width: 36px; height: 36px; }
+}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ-панель | Орхидея</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+<div class="frame-left" aria-hidden="true"></div>
+<div class="frame-right" aria-hidden="true"></div>
+
+<div class="container admin-dashboard">
+    <h1 style="text-align:center;">Панель управления записями</h1>
+    <p style="text-align:center;color:var(--text-muted);margin-bottom:30px;">
+        Выберите дату в календаре слева. Справа — список часов. Клик по записи открывает карточку.
+    </p>
+
+    <div class="admin-layout">
+
+        <aside class="calendar-widget">
+            <h3>Календарь</h3>
+            <div class="calendar-nav">
+                <button onclick="prevMonth()" aria-label="Предыдущий месяц">‹</button>
+                <span class="month-title" id="month-title"></span>
+                <button onclick="nextMonth()" aria-label="Следующий месяц">›</button>
+            </div>
+            <div class="calendar-weekdays">
+                <div>Пн</div><div>Вт</div><div>Ср</div><div>Чт</div><div>Пт</div><div>Сб</div><div>Вс</div>
+            </div>
+            <div class="calendar-days" id="calendar-days"></div>
+        </aside>
+
+        <section class="day-panel">
+            <div class="day-panel-header">
+                <h3 id="day-title">Выберите дату</h3>
+                <div class="day-stats">
+                    <div class="day-stat">Свободно: <b id="stat-free">0</b></div>
+                    <div class="day-stat">Заявок: <b id="stat-busy">0</b></div>
+                    <div class="day-stat">Выполнено: <b id="stat-done">0</b></div>
+                </div>
+            </div>
+            <div class="hours-list" id="hours-list">
+                <div class="slots-empty">Выберите дату в календаре</div>
+            </div>
+        </section>
+
+    </div>
+
+    <p style="margin-top:40px;color:var(--text-muted);font-size:.9em;text-align:center;">
+        <a href="index.html" style="color:var(--champagne);">← Вернуться на главную</a>
+    </p>
+</div>
+
+<div class="modal-overlay" id="modal" onclick="if(event.target===this) closeModal()">
+    <div class="modal-card" id="modal-card"></div>
+</div>
+
+<script src="admin.js"></script>
+</body>
+</html>

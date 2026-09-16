@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кабинет | Орхидея</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="week.css">
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="glass.css">
+    <link rel="stylesheet" href="datepicker.css">
+    <link rel="stylesheet" href="certificates.css">
+    <link rel="stylesheet" href="consultations.css">
+    <link rel="stylesheet" href="diplomas.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+<div class="frame-left" aria-hidden="true"></div>
+<div class="frame-right" aria-hidden="true"></div>
+
+<header class="main-header">
+    <nav class="container">
+        <a href="index.html" class="logo">ОРХИДЕЯ</a>
+        <ul>
+            <li><a href="index.html">Главная</a></li>
+            <li class="auth-item" id="header-auth-item"></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- ============ АДМИН ============ -->
+<div id="view-admin" class="container admin-dashboard" style="display:none;">
+    <h1 style="text-align:center;">Панель управления записями</h1>
+    <p style="text-align:center;color:var(--text-muted);margin-bottom:30px;">
+        Управляйте расписанием, прайсом, слотами, сертификатами и дипломами.
+    </p>
+
+    <div class="admin-tabs">
+        <button class="admin-tab active" onclick="switchAdminTab(event, 'schedule')">📅 Расписание</button>
+        <button class="admin-tab" onclick="switchAdminTab(event, 'services')">💰 Прайс услуг</button>
+        <button class="admin-tab" onclick="switchAdminTab(event, 'slots')">⏰ Слоты</button>
+        <button class="admin-tab" onclick="switchAdminTab(event, 'certificates')">🎁 Сертификаты</button>
+        <button class="admin-tab" onclick="switchAdminTab(event, 'diplomas')">📜 Дипломы</button>
+    </div>
+
+    <!-- Расписание -->
+    <div id="admin-schedule" class="admin-tab-content active">
+        <div id="admin-consult-alert"></div>
+
+        <div class="admin-layout">
+            <aside class="calendar-widget">
+                <h3>Календарь</h3>
+                <div class="calendar-nav">
+                    <button onclick="prevMonth()" aria-label="Предыдущий месяц">‹</button>
+                    <span class="month-title" id="month-title"></span>
+                    <button onclick="nextMonth()" aria-label="Следующий месяц">›</button>
+                </div>
+                <div class="calendar-weekdays">
+                    <div>Пн</div><div>Вт</div><div>Ср</div><div>Чт</div><div>Пт</div><div>Сб</div><div>Вс</div>
+                </div>
+                <div class="calendar-days" id="calendar-days"></div>
+            </aside>
+
+            <section class="day-panel">
+                <div class="day-panel-header">
+                    <h3 id="day-title">Выберите дату</h3>
+                    <div class="day-stats">
+                        <div class="day-stat">Свободно: <b id="stat-free">0</b></div>
+                        <div class="day-stat">Заявок: <b id="stat-busy">0</b></div>
+                        <div class="day-stat">Выполнено: <b id="stat-done">0</b></div>
+                    </div>
+                </div>
+                <div class="hours-list" id="hours-list">
+                    <div class="slots-empty">Выберите дату в календаре</div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Прайс -->
+    <div id="admin-services" class="admin-tab-content">
+        <div class="services-editor">
+            <div class="services-editor-header">
+                <h3>Управление прайс-листом</h3>
+                <button class="btn btn-primary" style="padding:10px 20px;font-size:.9em;" onclick="addService()">
+                    <i class="fas fa-plus"></i> Добавить услугу
+                </button>
+            </div>
+            <div id="admin-services-list" class="admin-services-list"></div>
+
+            <div class="trip-option-editor">
+                <h4><i class="fas fa-car"></i> Плашка под прайсом</h4>
+                <p class="trip-option-hint">
+                    Эта строка показывается внизу прайса на главной. Можно менять текст или отключить совсем.
+                </p>
+                <label class="trip-option-toggle">
+                    <input type="checkbox" id="trip-enabled"> Показывать плашку на сайте
+                </label>
+                <input type="text" id="trip-text" class="trip-option-input"
+                       placeholder="Выезд на дом — +300 ₽ к стоимости услуги">
+                <button class="btn btn-primary" style="padding:10px 20px;font-size:.9em;margin-top:8px;"
+                        onclick="saveTripOptionFromAdmin()">
+                    <i class="fas fa-check"></i> Сохранить
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Слоты -->
+    <div id="admin-slots" class="admin-tab-content">
+        <div class="slots-editor">
+
+            <div class="slots-editor-section">
+                <div class="services-editor-header">
+                    <h3>Шаблоны времени</h3>
+                    <div style="display:flex;gap:8px;">
+                        <input type="time" id="new-slot-time" class="slot-time-input" step="300" min="00:00" max="23:59">
+                        <button class="btn btn-primary" style="padding:10px 20px;font-size:.9em;" onclick="addSlotTemplate()">
+                            <i class="fas fa-plus"></i> Добавить
+                        </button>
+                    </div>
+                </div>
+                <div id="slot-templates-list" class="slot-templates-list"></div>
+            </div>
+
+            <div class="slots-editor-section">
+                <div class="services-editor-header">
+                    <h3>Расписание на неделю</h3>
+                    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                        <button class="btn btn-outline" style="padding:8px 16px;font-size:.85em;" onclick="gridSelectAll()">
+                            Включить всё
+                        </button>
+                        <button class="btn btn-outline" style="padding:8px 16px;font-size:.85em;" onclick="gridClearAll()">
+                            Очистить
+                        </button>
+                        <button class="btn btn-outline" style="padding:8px 16px;font-size:.85em;" onclick="gridResetAll()">
+                            Сбросить
+                        </button>
+                    </div>
+                </div>
+
+                <div class="week-nav">
+                    <button onclick="gridPrevWeek()" aria-label="Предыдущая неделя">‹</button>
+                    <span class="week-title" id="week-title"></span>
+                    <button onclick="gridNextWeek()" aria-label="Следующая неделя">›</button>
+                </div>
+
+                <div class="week-grid-wrap">
+                    <div class="week-grid" id="week-grid"></div>
+                </div>
+
+                <div class="timeline-legend">
+                    <span><span class="legend-dot legend-active"></span> Принимаю</span>
+                    <span><span class="legend-dot legend-off"></span> Не принимаю</span>
+                    <span><span class="legend-dot legend-booked"></span> Есть запись</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- СЕРТИФИКАТЫ -->
+    <div id="admin-certificates" class="admin-tab-content">
+        <div class="cert-editor">
+            <div class="services-editor-header">
+                <h3>Подарочные сертификаты</h3>
+                <button class="btn btn-primary" style="padding:10px 20px;font-size:.9em;" onclick="addCertificate()">
+                    <i class="fas fa-plus"></i> Добавить сертификат
+                </button>
+            </div>
+            <p style="color:var(--text-muted);font-size:.9em;margin:0 0 16px;">
+                Кликните по квадрату слева, чтобы загрузить фото. Или перетащите файл прямо в него.
+            </p>
+            <div id="admin-certificates-list" class="cert-admin-list"></div>
+        </div>
+    </div>
+
+    <!-- ДИПЛОМЫ -->
+    <div id="admin-diplomas" class="admin-tab-content">
+        <div class="diplomas-editor">
+            <div class="services-editor-header">
+                <h3>Дипломы и квалификация</h3>
+                <button class="btn btn-primary" style="padding:10px 20px;font-size:.9em;" onclick="addDiploma()">
+                    <i class="fas fa-plus"></i> Добавить диплом
+                </button>
+            </div>
+            <p style="color:var(--text-muted);font-size:.9em;margin:0 0 16px;">
+                Кликните по квадрату слева, чтобы загрузить фото. Или перетащите файл прямо в него.
+                Фото автоматически сжимаются до 900px по ширине.
+            </p>
+            <div id="admin-diplomas-list" class="diplomas-admin-list"></div>
+        </div>
+    </div>
+
+</div>
+
+<!-- ============ КЛИЕНТ ============ -->
+<div id="view-client" class="container client-dashboard" style="display:none;">
+    <h1 style="text-align:center;">Здравствуйте, <span id="client-name">гость</span>!</h1>
+    <p style="text-align:center;color:var(--text-muted);margin-bottom:30px;">
+        Здесь ваши записи и возможность записаться на свободное время.
+    </p>
+
+    <div class="client-layout">
+        <section class="client-panel">
+            <h3><i class="fas fa-list"></i> Мои записи</h3>
+            <div id="my-bookings" class="my-bookings-list"></div>
+        </section>
+
+        <section class="client-panel">
+            <h3><i class="fas fa-calendar-plus"></i> Новая запись</h3>
+            <form onsubmit="clientSubmitBooking(event)">
+                <label>Услуга</label>
+                <select name="service" id="client-service" required onchange="clientRenderSlots()">
+                    <option disabled selected value="">— Сначала выберите услугу —</option>
+                </select>
+
+                <label>Дата визита</label>
+                <input type="date" name="date" id="client-booking-date" required onchange="clientRenderSlots()">
+
+                <label>Свободное время</label>
+                <div id="client-slots-container" class="slots-grid">
+                    <div class="slots-empty">Сначала выберите услугу и дату</div>
+                </div>
+                <input type="hidden" name="time" id="client-booking-time" required>
+
+                <button type="submit" class="btn btn-primary" style="width:100%;margin-top:10px;">Записаться</button>
+            </form>
+        </section>
+    </div>
+</div>
+
+<!-- ============ ГОСТЬ ============ -->
+<div id="view-guest" class="container" style="display:none;text-align:center;padding:80px 20px;">
+    <h1>Вы не вошли в систему</h1>
+    <p style="color:var(--text-muted);margin-bottom:30px;">
+        Войдите, чтобы попасть в кабинет.
+    </p>
+    <a href="login.html" class="btn btn-primary">Войти</a>
+</div>
+
+<div class="modal-overlay" id="modal" onclick="if(event.target===this) closeModal()">
+    <div class="modal-card" id="modal-card"></div>
+</div>
+
+<script src="script.js"></script>
+<script src="slots.js"></script>
+<script src="services.js"></script>
+<script src="booking.js"></script>
+<script src="auth.js"></script>
+<script src="admin.js"></script>
+<script src="cabinet.js"></script>
+<script src="datepicker.js"></script>
+<script src="certificates.js"></script>
+<script src="consultations.js"></script>
+<script src="diplomas.js"></script>
+</body>
+</html>

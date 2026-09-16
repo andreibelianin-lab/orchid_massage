@@ -1,0 +1,221 @@
+/* ============================================================
+   КАСТОМНЫЙ КАЛЕНДАРЬ (DatePicker)
+   ============================================================ */
+
+.dp-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 5, 15, 0.55);
+    backdrop-filter: blur(12px) saturate(140%);
+    -webkit-backdrop-filter: blur(12px) saturate(140%);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 20px;
+}
+.dp-overlay.active {
+    display: flex;
+    animation: dpFadeIn 0.25s ease-out;
+}
+
+@keyframes dpFadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.dp-card {
+    background: rgba(42, 15, 46, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-top-color: rgba(255, 255, 255, 0.4);
+    border-radius: 22px;
+    padding: 26px 26px 20px;
+    width: 100%;
+    max-width: 420px;
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.25);
+    animation: dpSlideUp 0.3s ease-out;
+}
+
+@keyframes dpSlideUp {
+    from { opacity: 0; transform: translateY(20px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.dp-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+}
+.dp-month {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 1.15em;
+    color: var(--champagne);
+    text-transform: capitalize;
+    letter-spacing: 0.5px;
+}
+.dp-nav {
+    display: flex;
+    gap: 6px;
+}
+.dp-nav button {
+    width: 36px;
+    height: 36px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-muted);
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: all 0.2s;
+}
+.dp-nav button:hover {
+    border-color: var(--champagne);
+    color: var(--champagne);
+    background: rgba(212, 175, 55, 0.12);
+    transform: translateY(-1px);
+}
+
+.dp-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    margin-bottom: 8px;
+}
+.dp-weekdays div {
+    text-align: center;
+    font-size: 0.75em;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-dim);
+    padding: 6px 0;
+}
+
+.dp-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    margin-bottom: 16px;
+}
+.dp-day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 0.95em;
+    color: var(--text-primary);
+    border: 1px solid transparent;
+    transition: all 0.15s;
+    user-select: none;
+}
+.dp-day:hover {
+    background: rgba(212, 175, 55, 0.15);
+    border-color: rgba(212, 175, 55, 0.4);
+    transform: scale(1.06);
+}
+.dp-day.other-month {
+    color: var(--text-dim);
+    opacity: 0.35;
+    cursor: default;
+}
+.dp-day.other-month:hover {
+    background: transparent;
+    border-color: transparent;
+    transform: none;
+}
+.dp-day.today {
+    border-color: var(--champagne);
+    color: var(--champagne);
+}
+.dp-day.selected {
+    background: linear-gradient(135deg, var(--amethyst), #7E22CE);
+    color: #fff;
+    border-color: var(--amethyst-soft);
+    box-shadow:
+        0 4px 14px rgba(168, 85, 247, 0.55),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+.dp-day.disabled {
+    color: var(--text-dim);
+    opacity: 0.25;
+    cursor: not-allowed;
+    text-decoration: line-through;
+}
+.dp-day.disabled:hover {
+    background: transparent;
+    border-color: transparent;
+    transform: none;
+}
+
+.dp-footer {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.dp-btn {
+    flex: 1;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-muted);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.dp-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(212, 175, 55, 0.4);
+    color: var(--champagne);
+}
+.dp-btn.dp-btn-today {
+    background: linear-gradient(135deg, var(--amethyst), #7E22CE);
+    border-color: var(--amethyst-soft);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(168, 85, 247, 0.4);
+}
+.dp-btn.dp-btn-today:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(168, 85, 247, 0.55);
+}
+
+/* ============================================================
+   КАЛЕНДАРЬ — ТЕЛЕФОН
+   ============================================================ */
+
+@media (max-width: 600px) {
+    .dp-overlay { padding: 10px; align-items: flex-start; padding-top: 40px; }
+    .dp-card {
+        padding: 20px 16px 16px;
+        border-radius: 18px;
+        max-width: 100%;
+    }
+    .dp-header { margin-bottom: 14px; }
+    .dp-month { font-size: 1em; }
+    .dp-nav button { width: 32px; height: 32px; font-size: 1em; }
+
+    .dp-weekdays div { font-size: 0.7em; padding: 4px 0; }
+    .dp-days { gap: 2px; margin-bottom: 12px; }
+    .dp-day {
+        font-size: 0.9em;
+        border-radius: 10px;
+        min-height: 38px;
+    }
+    .dp-footer { padding-top: 12px; gap: 8px; }
+    .dp-btn { padding: 12px; font-size: 0.88em; border-radius: 10px; }
+}

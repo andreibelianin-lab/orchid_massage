@@ -1,0 +1,338 @@
+/* ============================================================
+   НЕДЕЛЬНАЯ СЕТКА (Google-подобная)
+   ============================================================ */
+
+.slots-editor {
+    background: var(--card-glass);
+    border: 1px solid var(--border-glass);
+    border-radius: 20px;
+    padding: 24px;
+}
+
+.slots-editor-section + .slots-editor-section {
+    margin-top: 30px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border-soft);
+}
+
+.slot-time-input {
+    padding: 10px 14px;
+    border: 1px solid #444;
+    background: rgba(0, 0, 0, 0.4);
+    color: var(--text-primary);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1em;
+    color-scheme: dark;
+}
+.slot-time-input:focus {
+    outline: none;
+    border-color: var(--champagne);
+}
+
+.slot-templates-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.slot-template-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: rgba(168, 85, 247, 0.15);
+    border: 1px solid rgba(168, 85, 247, 0.4);
+    color: var(--amethyst-soft);
+    border-radius: 30px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 0.95em;
+}
+.slot-template-chip button {
+    background: transparent;
+    border: none;
+    color: var(--amethyst-soft);
+    cursor: pointer;
+    padding: 0;
+    font-size: 0.9em;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+.slot-template-chip button:hover {
+    opacity: 1;
+    color: #fca5a5;
+}
+
+.week-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+.week-nav button {
+    background: transparent;
+    border: 1px solid var(--border-glass);
+    color: var(--text-muted);
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: all 0.2s;
+}
+.week-nav button:hover {
+    border-color: var(--champagne);
+    color: var(--champagne);
+}
+.week-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: var(--text-primary);
+    font-size: 1.1em;
+    min-width: 200px;
+    text-align: center;
+}
+
+.week-grid-wrap {
+    overflow-x: auto;
+    padding-bottom: 10px;
+}
+.week-grid {
+    display: grid;
+    grid-template-columns: 70px repeat(7, 1fr);
+    gap: 2px;
+    min-width: 700px;
+    user-select: none;
+}
+
+.week-cell {
+    padding: 8px 6px;
+    text-align: center;
+    border-radius: 6px;
+    font-size: 0.85em;
+}
+
+.week-corner {
+    background: transparent;
+}
+
+.week-day-head {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 10px 4px;
+    background: var(--card-glass-strong);
+    border: 1px solid var(--border-glass);
+    font-family: 'Montserrat', sans-serif;
+}
+.week-day-head .wd-name {
+    font-size: 0.8em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.week-day-head .wd-date {
+    font-size: 1.2em;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+.week-day-head.is-today {
+    border-color: var(--champagne);
+    background: rgba(212, 175, 55, 0.1);
+}
+.week-day-head.is-today .wd-date {
+    color: var(--champagne);
+}
+
+.week-time {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: var(--text-muted);
+    font-size: 0.85em;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 10px;
+    background: transparent;
+}
+
+.week-slot {
+    height: 34px;
+    cursor: pointer;
+    transition: all 0.15s;
+    border: 1px solid transparent;
+}
+.week-slot.is-active {
+    background: rgba(52, 211, 153, 0.25);
+    border-color: rgba(52, 211, 153, 0.5);
+}
+.week-slot.is-active:hover {
+    background: rgba(52, 211, 153, 0.4);
+}
+.week-slot.is-off {
+    background: rgba(75, 85, 99, 0.15);
+    border-color: rgba(75, 85, 99, 0.25);
+}
+.week-slot.is-off:hover {
+    background: rgba(75, 85, 99, 0.3);
+}
+
+.week-slot.is-booked {
+    background: linear-gradient(135deg, var(--amethyst), #7E22CE);
+    border-color: var(--amethyst-soft);
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 4px;
+    overflow: hidden;
+}
+.week-slot.is-booked:hover {
+    background: linear-gradient(135deg, #B975F8, #8B2FD6);
+    box-shadow: 0 0 12px rgba(168, 85, 247, 0.6);
+    transform: scale(1.03);
+}
+.week-slot.is-booked::after {
+    content: '⤢';
+    position: absolute;
+    top: 1px;
+    right: 4px;
+    font-size: 0.75em;
+    color: rgba(255, 255, 255, 0.6);
+    pointer-events: none;
+    transition: color 0.2s;
+}
+.week-slot.is-booked:hover::after {
+    color: #fff;
+}
+
+.week-slot-service {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 0.7em;
+    color: #fff;
+    text-align: center;
+    line-height: 1.15;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    pointer-events: none;
+    padding-right: 10px;
+}
+
+.timeline-legend {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    font-size: 0.9em;
+    color: var(--text-muted);
+}
+.timeline-legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+.legend-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 4px;
+    display: inline-block;
+}
+.legend-active  { background: rgba(52, 211, 153, 0.5); border: 1px solid rgba(52, 211, 153, 0.7); }
+.legend-off     { background: rgba(75, 85, 99, 0.3); border: 1px solid rgba(75, 85, 99, 0.5); }
+.legend-booked  { background: linear-gradient(135deg, var(--amethyst), #7E22CE); border: 1px solid var(--amethyst-soft); }
+
+/* ============================================================
+   DRAG & DROP ЗАЯВОК В НЕДЕЛЬНОЙ СЕТКЕ
+   ============================================================ */
+
+.week-slot.is-draggable { cursor: grab; }
+.week-slot.is-draggable:active { cursor: grabbing; }
+
+.week-slot.is-dragging {
+    opacity: 0.35;
+    transform: scale(0.92);
+    cursor: grabbing;
+    box-shadow: none !important;
+}
+
+.week-slot.is-drop-hover {
+    background: rgba(52, 211, 153, 0.45) !important;
+    border-color: #34D399 !important;
+    box-shadow:
+        0 0 16px rgba(52, 211, 153, 0.7),
+        inset 0 0 12px rgba(52, 211, 153, 0.4) !important;
+    transform: scale(1.04);
+    z-index: 5;
+}
+
+.week-slot.is-drop-invalid {
+    background: rgba(239, 68, 68, 0.3) !important;
+    border-color: #ef4444 !important;
+    box-shadow:
+        0 0 14px rgba(239, 68, 68, 0.6),
+        inset 0 0 12px rgba(239, 68, 68, 0.3) !important;
+    cursor: not-allowed;
+}
+
+.drag-toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(30px);
+    padding: 14px 26px;
+    border-radius: 14px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 0.9em;
+    color: #fff;
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    z-index: 6000;
+    pointer-events: none;
+    max-width: 90vw;
+    text-align: center;
+}
+.drag-toast.active {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+.drag-toast-success {
+    background: rgba(52, 211, 153, 0.85);
+    border: 1px solid #34D399;
+}
+.drag-toast-error {
+    background: rgba(220, 38, 38, 0.85);
+    border: 1px solid #ef4444;
+}
+
+/* ============================================================
+   НЕДЕЛЬНАЯ СЕТКА — ТЕЛЕФОН
+   ============================================================ */
+
+@media (max-width: 700px) {
+    .week-grid-wrap {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin: 0 -16px;
+        padding: 0 16px;
+    }
+    .week-grid {
+        min-width: 640px;
+        grid-template-columns: 50px repeat(7, 1fr);
+    }
+    .week-cell { font-size: 0.72em; padding: 5px 2px; }
+    .week-slot { height: 30px; }
+    .week-time { font-size: 0.68em; padding-right: 4px; }
+    .week-day-head .wd-date { font-size: 1em; }
+    .week-day-head .wd-name { font-size: 0.7em; }
+}

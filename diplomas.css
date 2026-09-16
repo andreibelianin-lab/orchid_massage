@@ -1,0 +1,343 @@
+/* ============================================================
+   КВАЛИФИКАЦИЯ — ДИПЛОМЫ И СЕРТИФИКАТЫ ОБ ОБРАЗОВАНИИ
+   ============================================================ */
+
+.diplomas-section {
+    padding: 80px 0 60px;
+    background: rgba(0,0,0,0.4);
+    position: relative; overflow: hidden;
+}
+.diplomas-section h2 { margin-bottom: 20px; }
+.diplomas-subtitle {
+    text-align: center;
+    color: var(--text-muted);
+    font-family: 'Cormorant', serif;
+    font-style: italic;
+    font-size: 1.15em;
+    margin: 0 0 50px;
+    letter-spacing: 0.5px;
+}
+
+/* ============ ЛЕНТА ДИПЛОМОВ ============ */
+.diplomas-marquee {
+    position: relative;
+    width: 100%; overflow: hidden;
+    mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+    padding: 20px 0;
+}
+.diplomas-track {
+    display: flex; gap: 28px;
+    width: max-content;
+    animation: diplomasScroll 40s linear infinite;
+    will-change: transform;
+}
+.diplomas-marquee:hover .diplomas-track { animation-play-state: paused; }
+@keyframes diplomasScroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+
+.diploma-card {
+    position: relative;
+    width: 240px; height: 320px;
+    flex-shrink: 0;
+    border-radius: 16px;
+    overflow: hidden; cursor: pointer;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-top-color: rgba(255, 235, 150, 0.55);
+    box-shadow:
+        0 12px 32px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1),
+                box-shadow 0.35s ease;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+.diploma-card:hover {
+    transform: translateY(-6px) scale(1.04);
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.6),
+        0 0 30px rgba(212, 175, 55, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border-color: var(--champagne);
+}
+.diploma-card img {
+    display: block; width: 100%; height: 100%;
+    object-fit: cover; pointer-events: none;
+    transition: transform 0.6s ease;
+}
+.diploma-caption {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 14px 16px 12px;
+    background: linear-gradient(180deg,
+        rgba(27, 10, 31, 0) 0%,
+        rgba(27, 10, 31, 0.85) 40%,
+        rgba(27, 10, 31, 0.98) 100%);
+    color: var(--text-primary);
+    font-family: 'Playfair Display', serif;
+    font-style: italic; font-weight: 600;
+    font-size: 0.95em; line-height: 1.3;
+    text-align: center; pointer-events: none;
+    z-index: 2;
+}
+.diploma-card::after {
+    content: '';
+    position: absolute;
+    top: -50%; left: -100%;
+    width: 60%; height: 200%;
+    background: linear-gradient(100deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.28) 50%,
+        transparent 100%);
+    transform: skewX(-20deg);
+    pointer-events: none; z-index: 3;
+}
+.diploma-card:hover::after { animation: diplomaShine 1s ease-in-out; }
+@keyframes diplomaShine {
+    0%   { left: -100%; }
+    100% { left: 200%; }
+}
+.diploma-zoom {
+    position: absolute;
+    top: 12px; right: 12px;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(212, 175, 55, 0.5);
+    color: var(--champagne);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.95em; z-index: 4;
+    opacity: 0; transition: opacity 0.25s;
+    pointer-events: none;
+}
+.diploma-card:hover .diploma-zoom { opacity: 1; }
+
+/* ============ ЛАЙТБОКС ============ */
+.diplomas-lightbox {
+    position: fixed; inset: 0;
+    background: rgba(10, 5, 15, 0.9);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    display: none; align-items: center; justify-content: center;
+    z-index: 3500; padding: 30px; cursor: zoom-out;
+}
+.diplomas-lightbox.active {
+    display: flex;
+    animation: diplomaFadeIn 0.3s ease-out;
+}
+@keyframes diplomaFadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+.diplomas-lightbox img {
+    max-width: 92vw; max-height: 88vh;
+    border-radius: 14px;
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.75),
+        0 0 0 1px rgba(212, 175, 55, 0.4);
+    cursor: default;
+    animation: diplomaZoom 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+@keyframes diplomaZoom {
+    from { transform: scale(0.85); opacity: 0; }
+    to   { transform: scale(1); opacity: 1; }
+}
+.diplomas-lightbox-close {
+    position: absolute;
+    top: 24px; right: 28px;
+    width: 46px; height: 46px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff; font-size: 1.3em;
+    cursor: pointer; transition: all 0.25s;
+    display: flex; align-items: center; justify-content: center;
+}
+.diplomas-lightbox-close:hover {
+    background: rgba(239, 68, 68, 0.3);
+    border-color: #ef4444;
+    transform: rotate(90deg);
+}
+
+/* ============================================================
+   РЕДАКТОР ДИПЛОМОВ В АДМИНКЕ
+   ============================================================ */
+.diplomas-editor {
+    background: var(--card-glass);
+    border: 1px solid var(--border-glass);
+    border-radius: 20px;
+    padding: 24px;
+    max-width: 1100px; margin: 0 auto;
+}
+.diplomas-admin-list {
+    display: flex; flex-direction: column;
+    gap: 14px; margin-top: 20px;
+}
+.diploma-edit-card {
+    display: grid;
+    grid-template-columns: 130px 1fr auto;
+    gap: 18px; align-items: start;
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-soft);
+    border-radius: 14px;
+    transition: all 0.25s;
+}
+.diploma-edit-card:hover { border-color: rgba(212, 175, 55, 0.35); }
+.diploma-edit-card.saved {
+    background: rgba(52, 211, 153, 0.12);
+    border-color: var(--emerald-soft);
+}
+.diploma-edit-thumb {
+    width: 130px; height: 170px;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.4);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: 1px dashed var(--border-glass);
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-dim); font-size: 0.8em;
+    text-align: center; padding: 8px;
+    box-sizing: border-box;
+    cursor: pointer; position: relative;
+    overflow: hidden; transition: all 0.2s;
+}
+.diploma-edit-thumb:hover {
+    border-color: var(--champagne);
+    border-style: solid;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+}
+.diploma-edit-thumb::after {
+    content: '\f093';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute; inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--champagne); font-size: 1.6em;
+    opacity: 0; transition: opacity 0.2s;
+    pointer-events: none;
+}
+.diploma-edit-thumb:hover::after { opacity: 1; }
+.diploma-edit-thumb.has-photo .diploma-clear-photo { display: flex; }
+.diploma-edit-thumb.loading::before {
+    content: ''; position: absolute; inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    border-radius: 10px; z-index: 2;
+}
+.diploma-edit-thumb.loading::after {
+    content: '\f110';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    animation: diplomaSpin 0.8s linear infinite;
+    opacity: 1; color: var(--champagne);
+    font-size: 1.8em; background: transparent;
+    z-index: 3;
+}
+@keyframes diplomaSpin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+.diploma-clear-photo {
+    position: absolute; top: 6px; right: 6px;
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: rgba(239, 68, 68, 0.9);
+    color: #fff;
+    border: 2px solid var(--bg-deep);
+    font-size: 0.75em; cursor: pointer;
+    display: none; align-items: center; justify-content: center;
+    z-index: 3; padding: 0; line-height: 1;
+    transition: transform 0.15s;
+}
+.diploma-clear-photo:hover { transform: scale(1.15); background: #dc2626; }
+.diploma-edit-fields {
+    display: flex; flex-direction: column;
+    gap: 10px; min-width: 0;
+}
+.diploma-edit-fields input,
+.diploma-edit-fields textarea {
+    width: 100%; padding: 10px 14px;
+    border: 1px solid #444;
+    background: rgba(0, 0, 0, 0.35);
+    color: var(--text-primary);
+    border-radius: 8px;
+    font-family: inherit; font-size: 0.95em;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+    resize: vertical;
+}
+.diploma-edit-fields input:focus,
+.diploma-edit-fields textarea:focus {
+    outline: none; border-color: var(--champagne);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.12);
+}
+.diploma-edit-fields textarea { min-height: 60px; }
+.diploma-edit-row { display: grid; grid-template-columns: 1fr 100px; gap: 10px; }
+.diploma-edit-toggle {
+    display: flex; align-items: center;
+    gap: 8px; font-size: 0.88em;
+    color: var(--text-muted);
+    cursor: pointer; user-select: none;
+    margin-top: 4px;
+}
+.diploma-edit-toggle input[type="checkbox"] {
+    width: 18px; height: 18px;
+    accent-color: var(--emerald-soft);
+    cursor: pointer;
+}
+.diploma-edit-actions { display: flex; flex-direction: column; gap: 8px; }
+.diploma-edit-actions button {
+    width: 44px; height: 44px;
+    border-radius: 10px; border: none;
+    cursor: pointer; font-size: 1em;
+    transition: all 0.2s;
+    display: flex; align-items: center; justify-content: center;
+}
+.diploma-file-input { display: none; }
+
+/* ============================================================
+   ДИПЛОМЫ — ТЕЛЕФОН
+   ============================================================ */
+@media (max-width: 600px) {
+    .diplomas-section { padding: 32px 0 24px; }
+    .diplomas-section h2 { margin-bottom: 12px; }
+    .diplomas-subtitle {
+        font-size: 0.95em; margin: 0 0 20px; padding: 0 14px;
+    }
+    .diplomas-marquee {
+        padding: 10px 0;
+        mask-image: linear-gradient(90deg, transparent 0%, #000 5%, #000 95%, transparent 100%);
+        -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 5%, #000 95%, transparent 100%);
+    }
+    .diplomas-track { gap: 10px; animation-duration: 30s; }
+    .diploma-card { width: 130px; height: 180px; border-radius: 10px; }
+    .diploma-caption { font-size: 0.75em; padding: 8px 10px 6px; line-height: 1.2; }
+    .diploma-zoom { width: 26px; height: 26px; font-size: 0.7em; top: 6px; right: 6px; }
+
+    .diplomas-editor { padding: 14px; border-radius: 16px; }
+    .diplomas-admin-list { gap: 8px; margin-top: 12px; }
+    .diploma-edit-card {
+        grid-template-columns: 80px 1fr;
+        gap: 10px; padding: 10px; border-radius: 10px;
+    }
+    .diploma-edit-thumb { width: 80px; height: 105px; border-radius: 8px; }
+    .diploma-edit-fields { gap: 6px; }
+    .diploma-edit-fields input,
+    .diploma-edit-fields textarea {
+        font-size: 0.85em; padding: 8px 10px; border-radius: 6px;
+    }
+    .diploma-edit-fields textarea { min-height: 44px; }
+    .diploma-edit-row { grid-template-columns: 1fr; gap: 6px; }
+    .diploma-edit-toggle { font-size: 0.82em; }
+    .diploma-edit-actions {
+        grid-column: 1 / -1; flex-direction: row;
+        justify-content: flex-end; gap: 6px;
+    }
+    .diploma-edit-actions button { width: 36px; height: 36px; }
+}

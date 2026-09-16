@@ -1,0 +1,465 @@
+/* ============================================================
+   GLASS-ЭФФЕКТ (iOS / Liquid Glass)
+   Подключать ПОСЛЕ style.css, week.css, admin.css, login.css
+   ============================================================ */
+
+:root {
+    --glass-bg:          rgba(255, 255, 255, 0.06);
+    --glass-bg-strong:   rgba(255, 255, 255, 0.10);
+    --glass-border:      rgba(255, 255, 255, 0.14);
+    --glass-border-top:  rgba(255, 255, 255, 0.28);
+    --glass-shadow:      0 10px 30px rgba(0, 0, 0, 0.35);
+    --glass-inner:       inset 0 1px 0 rgba(255, 255, 255, 0.18),
+                         inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+    --glass-blur:        blur(20px) saturate(160%);
+}
+
+/* ============ КАРТОЧКИ "О НАС" ============ */
+.feature-card {
+    background: var(--glass-bg) !important;
+    border: 1px solid var(--glass-border) !important;
+    border-top-color: var(--glass-border-top) !important;
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    box-shadow: var(--glass-shadow), var(--glass-inner);
+}
+
+/* ============ ПРАЙС ============ */
+.price-list {
+    background: var(--glass-bg) !important;
+    border: 1px solid var(--glass-border) !important;
+    border-top-color: var(--glass-border-top) !important;
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    box-shadow: var(--glass-shadow), var(--glass-inner) !important;
+}
+
+/* ============ ОТЗЫВЫ ============ */
+.review-card {
+    background: var(--glass-bg) !important;
+    border: 1px solid var(--glass-border) !important;
+    border-top-color: var(--glass-border-top) !important;
+    border-left: 4px solid var(--champagne) !important;
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    box-shadow: var(--glass-shadow), var(--glass-inner);
+}
+
+/* ============ ФОРМЫ ============ */
+.form-box {
+    background: var(--glass-bg-strong) !important;
+    border: 1px solid var(--glass-border) !important;
+    border-top-color: var(--glass-border-top) !important;
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    box-shadow: var(--glass-shadow), var(--glass-inner);
+}
+
+/* ============ ХЕДЕР ============ */
+.main-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(27, 10, 31, 0.55);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border-bottom: 1px solid var(--glass-border);
+}
+.main-header nav {
+    border-bottom: none !important;
+}
+
+/* ============ КНОПКИ ============ */
+.btn-primary {
+    background: linear-gradient(180deg,
+        rgba(192, 132, 252, 0.95) 0%,
+        rgba(126, 34, 206, 0.95) 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    box-shadow:
+        0 8px 24px rgba(168, 85, 247, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.35),
+        inset 0 -2px 0 rgba(0, 0, 0, 0.2) !important;
+    backdrop-filter: blur(10px);
+}
+.btn-primary:hover {
+    background: linear-gradient(180deg,
+        rgba(202, 145, 255, 1) 0%,
+        rgba(140, 40, 220, 1) 100%) !important;
+    box-shadow:
+        0 12px 32px rgba(168, 85, 247, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4),
+        inset 0 -2px 0 rgba(0, 0, 0, 0.2) !important;
+}
+.btn-outline {
+    background: var(--glass-bg) !important;
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    box-shadow: var(--glass-inner);
+}
+.btn-outline:hover {
+    background: var(--champagne) !important;
+    backdrop-filter: none;
+}
+
+/* ============ АДМИН: ВКЛАДКИ ============ */
+.admin-tab {
+    background: var(--glass-bg) !important;
+    border: 1px solid var(--glass-border) !important;
+    border-top-color: var(--glass-border-top) !important;
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    box-shadow: var(--glass-inner);
+}
+.admin-tab.active {
+    background: var(--glass-bg-strong) !important;
+    border-color: var(--champagne) !important;
+    box-shadow:
+        0 4px 16px rgba(212, 175, 55, 0.2),
+        var(--glass-inner);
+}
+
+/* ============ АДМИН: КАЛЕНДАРЬ, ПАНЕЛИ ============ */
+.calendar-widget,
+.day-panel,
+.services-editor,
+.slots-editor {
+    background: var(--glass-bg) !important;
+    border: 1px solid var(--glass-border) !important;
+    border-top-color: var(--glass-border-top) !important;
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    box-shadow: var(--glass-shadow), var(--glass-inner) !important;
+}
+
+.calendar-nav button,
+.week-nav button {
+    background: var(--glass-bg) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border) !important;
+    box-shadow: var(--glass-inner);
+}
+.calendar-nav button:hover,
+.week-nav button:hover {
+    background: var(--glass-bg-strong) !important;
+    border-color: var(--champagne) !important;
+}
+
+.calendar-day {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+.calendar-day:hover {
+    background: var(--glass-bg-strong);
+    border-color: var(--glass-border);
+    box-shadow: var(--glass-inner);
+}
+
+/* ============ НЕДЕЛЬНАЯ СЕТКА ============ */
+.week-slot.is-off {
+    background: rgba(255, 255, 255, 0.025) !important;
+    border-color: rgba(255, 255, 255, 0.05) !important;
+}
+.week-slot.is-active {
+    background: rgba(52, 211, 153, 0.18) !important;
+    border-color: rgba(52, 211, 153, 0.4) !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+.week-slot.is-active:hover {
+    background: rgba(52, 211, 153, 0.32) !important;
+    box-shadow: 0 0 12px rgba(52, 211, 153, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+.week-slot.is-booked {
+    box-shadow:
+        0 4px 16px rgba(168, 85, 247, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.week-day-head {
+    background: var(--glass-bg) !important;
+    border: 1px solid var(--glass-border) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: var(--glass-inner);
+}
+.week-day-head.is-today {
+    background: rgba(212, 175, 55, 0.12) !important;
+    border-color: var(--champagne) !important;
+    box-shadow:
+        0 0 12px rgba(212, 175, 55, 0.25),
+        var(--glass-inner);
+}
+
+/* ============ АДМИН: КАРТОЧКИ УСЛУГ ============ */
+.service-edit-card {
+    background: var(--glass-bg) !important;
+    border: 1px solid var(--glass-border) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: var(--glass-inner);
+}
+.service-edit-card:hover {
+    background: var(--glass-bg-strong) !important;
+    border-color: rgba(212, 175, 55, 0.4) !important;
+}
+
+.service-edit-fields input,
+.slot-time-input {
+    background: rgba(0, 0, 0, 0.3) !important;
+    border: 1px solid var(--glass-border) !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+.service-edit-fields input:focus,
+.slot-time-input:focus {
+    background: rgba(0, 0, 0, 0.4) !important;
+    border-color: var(--champagne) !important;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+}
+
+.slot-template-chip {
+    background: rgba(168, 85, 247, 0.15) !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: var(--glass-inner);
+}
+
+/* ============ МОДАЛЬНОЕ ОКНО ============ */
+body .modal-overlay {
+    background: rgba(10, 5, 15, 0.5) !important;
+    backdrop-filter: blur(20px) saturate(140%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(140%) !important;
+}
+
+body .modal-overlay .modal-card,
+body .modal-card {
+    background: rgba(42, 15, 46, 0.65) !important;
+    background-image: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.08) 0%,
+        rgba(255, 255, 255, 0.02) 60%,
+        rgba(0, 0, 0, 0.1) 100%
+    ) !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    border-top-color: rgba(255, 255, 255, 0.35) !important;
+    backdrop-filter: blur(40px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(40px) saturate(180%) !important;
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(255, 255, 255, 0.05) inset,
+        inset 0 1px 0 rgba(255, 255, 255, 0.25),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.25) !important;
+    border-radius: 22px !important;
+}
+
+body .modal-actions .btn-status {
+    background: linear-gradient(180deg,
+        rgba(192, 132, 252, 0.95) 0%,
+        rgba(126, 34, 206, 0.95) 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    box-shadow:
+        0 6px 18px rgba(168, 85, 247, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.35),
+        inset 0 -2px 0 rgba(0, 0, 0, 0.2) !important;
+}
+
+body .modal-actions .btn-reschedule {
+    background: linear-gradient(180deg,
+        rgba(250, 220, 100, 0.95) 0%,
+        rgba(200, 145, 20, 0.95) 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    box-shadow:
+        0 6px 18px rgba(212, 175, 55, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4),
+        inset 0 -2px 0 rgba(0, 0, 0, 0.15) !important;
+}
+
+body .modal-actions .btn-delete {
+    background: linear-gradient(180deg,
+        rgba(160, 50, 50, 0.9) 0%,
+        rgba(100, 20, 20, 0.95) 100%) !important;
+    border: 1px solid rgba(255, 100, 100, 0.3) !important;
+    box-shadow:
+        0 6px 18px rgba(150, 20, 20, 0.4),
+        inset 0 1px 0 rgba(255, 150, 150, 0.2),
+        inset 0 -2px 0 rgba(0, 0, 0, 0.2) !important;
+}
+
+body .modal-actions .btn-close {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* ============ КАБИНЕТ КЛИЕНТА ============ */
+.client-panel {
+    background: var(--glass-bg) !important;
+    border: 1px solid var(--glass-border) !important;
+    border-top-color: var(--glass-border-top) !important;
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    box-shadow: var(--glass-shadow), var(--glass-inner);
+}
+
+.my-booking-card {
+    background: var(--glass-bg) !important;
+    border: 1px solid var(--glass-border) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: var(--glass-inner);
+}
+
+/* ============ ЛОГИН ============ */
+.login-form-box {
+    background: linear-gradient(
+        135deg,
+        rgba(168, 85, 247, 0.14) 0%,
+        rgba(42, 15, 46, 0.55) 100%
+    ) !important;
+    border: 1px solid var(--glass-border-top) !important;
+    backdrop-filter: blur(28px) saturate(180%);
+    -webkit-backdrop-filter: blur(28px) saturate(180%);
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.55),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.2) !important;
+}
+.login-form-box input {
+    background: rgba(0, 0, 0, 0.3) !important;
+    border: 1px solid var(--glass-border) !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+.login-form-box input:focus {
+    background: rgba(0, 0, 0, 0.4) !important;
+    border-color: var(--champagne) !important;
+    box-shadow:
+        0 0 0 4px rgba(212, 175, 55, 0.15),
+        0 0 20px rgba(212, 175, 55, 0.2) !important;
+}
+
+/* ============ СЛОТЫ (общие) ============ */
+.slot-free {
+    background: rgba(52, 211, 153, 0.14) !important;
+    border-color: rgba(52, 211, 153, 0.4) !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+.slot-free:hover {
+    background: rgba(52, 211, 153, 0.3) !important;
+    box-shadow:
+        0 6px 20px rgba(52, 211, 153, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+.slot-selected {
+    box-shadow:
+        0 8px 24px rgba(168, 85, 247, 0.55),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+}
+
+/* ============ ПОЛЯ В ФОРМАХ (главная) ============ */
+.form-box input,
+.form-box select {
+    background: rgba(0, 0, 0, 0.3) !important;
+    border: 1px solid var(--glass-border) !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+.form-box input:focus,
+.form-box select:focus {
+    background: rgba(0, 0, 0, 0.4) !important;
+    border-color: var(--champagne) !important;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+}
+
+/* ============ ФУТЕР ============ */
+.main-footer {
+    background: rgba(0, 0, 0, 0.55) !important;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid var(--glass-border);
+}
+
+/* ============ ФОЛБЭК ДЛЯ СТАРЫХ БРАУЗЕРОВ ============ */
+@supports not (backdrop-filter: blur(20px)) {
+    .feature-card,
+    .price-list,
+    .review-card,
+    .form-box,
+    .calendar-widget,
+    .day-panel,
+    .services-editor,
+    .slots-editor,
+    .client-panel,
+    .my-booking-card,
+    .modal-card,
+    .login-form-box {
+        background: rgba(42, 15, 46, 0.9) !important;
+    }
+}
+
+/* ============================================================
+   КАСТОМНАЯ ИКОНКА КАЛЕНДАРЯ В ПОЛЯХ ВВОДА
+   ============================================================ */
+
+/* Скрываем нативный значок */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0;
+    width: 44px;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+}
+
+/* Контейнер для поля — relative, чтобы позиционировать иконку */
+.form-box input[type="date"],
+.client-panel input[type="date"] {
+    position: relative;
+    padding-right: 60px;
+    cursor: pointer;
+    color-scheme: dark;
+}
+
+/* Наша золотая иконка календаря (SVG прямо в CSS) */
+.form-box input[type="date"],
+.client-panel input[type="date"] {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36' width='36' height='36'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='0%25' y2='100%25'><stop offset='0%25' stop-color='%23FBBF24'/><stop offset='100%25' stop-color='%23B8860B'/></linearGradient></defs><rect x='4' y='7' width='28' height='25' rx='5' ry='5' fill='none' stroke='url(%23g)' stroke-width='2.2'/><rect x='4' y='7' width='28' height='7' rx='5' ry='5' fill='url(%23g)' opacity='0.85'/><line x1='11' y1='3' x2='11' y2='10' stroke='url(%23g)' stroke-width='2.5' stroke-linecap='round'/><line x1='25' y1='3' x2='25' y2='10' stroke='url(%23g)' stroke-width='2.5' stroke-linecap='round'/><circle cx='13' cy='19' r='1.6' fill='url(%23g)'/><circle cx='19' cy='19' r='1.6' fill='url(%23g)'/><circle cx='25' cy='19' r='1.6' fill='url(%23g)'/><circle cx='13' cy='25' r='1.6' fill='url(%23g)'/><circle cx='19' cy='25' r='1.6' fill='url(%23g)'/></svg>") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 16px center !important;
+    background-size: 32px 32px !important;
+    transition: box-shadow 0.25s, border-color 0.25s;
+}
+
+/* Подсветка поля при наведении */
+.form-box input[type="date"]:hover,
+.client-panel input[type="date"]:hover {
+    border-color: rgba(212, 175, 55, 0.7) !important;
+    box-shadow:
+        0 0 0 3px rgba(212, 175, 55, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Подсветка при фокусе */
+.form-box input[type="date"]:focus,
+.client-panel input[type="date"]:focus {
+    border-color: var(--champagne) !important;
+    box-shadow:
+        0 0 0 4px rgba(212, 175, 55, 0.2),
+        0 0 24px rgba(212, 175, 55, 0.25) !important;
+    outline: none;
+}
+
+/* В Firefox — просто аккуратно */
+@supports (-moz-appearance: none) {
+    .form-box input[type="date"],
+    .client-panel input[type="date"] {
+        background-image: none !important;
+        padding-right: 15px;
+    }
+}
