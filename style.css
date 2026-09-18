@@ -1,455 +1,838 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Салон «Орхидея» — массаж и уход за телом. Запись онлайн.">
-    <title>Салон «Орхидея» | Массаж</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Montserrat:wght@600;700&family=Lora:ital@0;1&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="glass.css">
-    <link rel="stylesheet" href="datepicker.css">
-    <link rel="stylesheet" href="certificates.css">
-    <link rel="stylesheet" href="diplomas.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
-<body>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Montserrat:wght@600;700&family=Lora:ital@0;1&display=swap');
 
-<div class="frame-left" aria-hidden="true"></div>
-<div class="frame-right" aria-hidden="true"></div>
+:root {
+    --bg-deep: #1B0A1F;
+    --bg-panel: #2A0F2E;
+    --amethyst: #A855F7;
+    --amethyst-soft: #C084FC;
+    --champagne: #D4AF37;
+    --champagne-soft: #FBBF24;
+    --emerald-soft: #34D399;
+    --text-primary: #F5EDE4;
+    --text-muted: #B8A8C8;
+    --text-dim: #7A6A88;
+    --border-glass: rgba(212, 175, 55, 0.15);
+    --border-soft: rgba(255, 255, 255, 0.08);
+    --card-glass: rgba(168, 85, 247, 0.06);
+    --card-glass-strong: rgba(168, 85, 247, 0.12);
+    --st-free: #34D399;
+    --st-pending: #FBBF24;
+    --st-confirmed: #A855F7;
+    --st-done: #4B5563;
+    --st-cancelled: #EF4444;
+    --bg-gradient: linear-gradient(135deg, #1B0A1F 0%, #2A0F2E 50%, #1a0a1e 100%);
+}
 
-<img src="orchid-logo.png" alt="" class="fixed-flower" aria-hidden="true">
+* { box-sizing: border-box; }
 
-<header class="main-header">
-    <nav class="container">
-        <a href="#" class="logo">ОРХИДЕЯ</a>
-        <ul>
-            <li class="nav-dropdown">
-                <a href="#about" class="nav-dropdown-toggle">
-                    О нас
-                    <i class="fas fa-chevron-down nav-caret"></i>
-                </a>
-                <ul class="nav-dropdown-menu">
-                    <li>
-                        <a href="#diplomas">
-                            <i class="fas fa-award"></i> Квалификация
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://vk.ru/orchid_massage" target="_blank" rel="noopener" class="nav-vk-link">
-                            <i class="fab fa-vk"></i> Мы во ВКонтакте
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#booking-form">
-                            <i class="fas fa-calendar-check"></i> Записаться
-                        </a>
-                    </li>
-                    <li>
-                        <a href="tel:+74950000000">
-                            <i class="fas fa-phone"></i> Позвонить
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#reviews">
-                            <i class="fas fa-star"></i> Отзывы
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li><a href="#services">Услуги и цены</a></li>
-            <li><a href="#certificates">Сертификаты</a></li>
-            <li><a href="#reviews">Отзывы</a></li>
+body {
+    margin: 0;
+    font-family: 'Lora', serif;
+    color: var(--text-primary);
+    background: var(--bg-gradient);
+    overflow-x: hidden;
+    min-height: 100vh;
+}
 
-            <li class="nav-vk-icon">
-                <a href="https://vk.ru/orchid_massage" target="_blank" rel="noopener" title="Мы во ВКонтакте">
-                    <i class="fab fa-vk"></i>
-                </a>
-            </li>
+.container {
+    max-width: 1200px;
+    padding: 0 20px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 5;
+}
 
-            <li class="auth-item" id="header-auth-item">
-                <a href="login.html" class="auth-link">Кабинет</a>
-            </li>
-        </ul>
-    </nav>
-</header>
+h1, h2, h3 {
+    font-family: 'Playfair Display', serif;
+    letter-spacing: 0.3px;
+}
 
-<section class="hero-slider">
+/* ============ СТЕБЕЛЬ ОРХИДЕИ ============ */
+.frame-left, .frame-right {
+    position: fixed;
+    top: 0; bottom: 0;
+    width: 140px;
+    pointer-events: none;
+    z-index: 1;
+    background-image: url("orchid-stem.png");
+    background-repeat: repeat-y;
+    background-size: 140px auto;
+    background-position: center top;
+    opacity: 0.9;
+}
+.frame-left { left: 0; }
+.frame-right { right: 0; transform: scaleX(-1); }
 
-    <div class="slide active">
-        <div class="slide-content container">
-            <h1>Массаж всей спины</h1>
-            <p>Глубокое расслабление и снятие напряжения</p>
-            <div class="cta-group">
-                <a href="#booking-form" class="btn btn-primary">Записаться на прием</a>
-                <a href="#consultation" class="btn btn-outline">Получить консультацию</a>
-            </div>
-        </div>
-    </div>
+/* ============ ФИКСИРОВАННЫЙ ЦВЕТОК ПОД ШАПКОЙ ============ */
+.fixed-flower {
+    position: fixed;
+    top: 130px;                    /* отступ = высота шапки + небольшой зазор */
+    left: 140px;                   /* вплотную к правому краю орнамента */
+    height: auto;                  /* НЕ растягиваем — просто натуральная высота */
+    width: 240px;                  /* фиксированная ширина */
+    max-height: calc(100vh - 150px); /* не выше нижней границы экрана */
+    object-fit: contain;
+    object-position: left top;
+    opacity: 0.55;
+    pointer-events: none;
+    z-index: 3;                    /* поверх орнамента, ниже контента */
+    filter: drop-shadow(0 12px 40px rgba(168, 85, 247, 0.45));
+    animation: fixedFlowerSway 9s ease-in-out infinite;
+    transform-origin: center center;
+    will-change: transform;
+}
 
-    <div class="slide">
-        <div class="slide-content container">
-            <h1>Массаж воротниковой зоны</h1>
-            <p>Избавление от зажимов и головной боли</p>
-            <div class="cta-group">
-                <a href="#booking-form" class="btn btn-primary">Записаться на прием</a>
-                <a href="#consultation" class="btn btn-outline">Получить консультацию</a>
-            </div>
-        </div>
-    </div>
+@keyframes fixedFlowerSway {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50%      { transform: translateY(-8px) rotate(-2deg); }
+}
 
-    <div class="slide">
-        <div class="slide-content container">
-            <h1>Массаж рук</h1>
-            <p>Восстановление лёгкости движений</p>
-            <div class="cta-group">
-                <a href="#booking-form" class="btn btn-primary">Записаться на прием</a>
-                <a href="#consultation" class="btn btn-outline">Получить консультацию</a>
-            </div>
-        </div>
-    </div>
+/* ============ ХЕДЕР ============ */
+.main-header { position: relative; z-index: 10; }
+.main-header nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border-glass);
+}
+.logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.7em;
+    background: linear-gradient(90deg, var(--amethyst), var(--champagne));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: 2px;
+}
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+nav a {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+nav a:hover { color: var(--champagne); }
 
-    <div class="slide">
-        <div class="slide-content container">
-            <h1>Массаж ног, включая стопы</h1>
-            <p>Снятие усталости и тяжести в ногах</p>
-            <div class="cta-group">
-                <a href="#booking-form" class="btn btn-primary">Записаться на прием</a>
-                <a href="#consultation" class="btn btn-outline">Получить консультацию</a>
-            </div>
-        </div>
-    </div>
+.auth-item { display: flex; align-items: center; gap: 5px; }
+.auth-item a { color: var(--champagne); }
 
-    <div class="slide">
-        <div class="slide-content container">
-            <h1>Антицеллюлитный массаж</h1>
-            <p>Ноги, ягодицы и живот — работаем комплексно</p>
-            <div class="cta-group">
-                <a href="#booking-form" class="btn btn-primary">Записаться на прием</a>
-                <a href="#consultation" class="btn btn-outline">Получить консультацию</a>
-            </div>
-        </div>
-    </div>
+/* ============ РАСКРЫВАЮЩЕЕСЯ МЕНЮ «О НАС» + ИКОНКА VK ============ */
+.nav-dropdown { position: relative; }
+.nav-dropdown-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}
+.nav-caret {
+    font-size: 0.65em;
+    opacity: 0.7;
+    transition: transform 0.3s;
+}
+.nav-dropdown:hover .nav-caret {
+    transform: rotate(180deg);
+    opacity: 1;
+}
+.nav-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 50%;
+    transform: translateX(-50%) translateY(-8px);
+    min-width: 220px;
+    background: rgba(42, 15, 46, 0.92);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-top-color: rgba(255, 255, 255, 0.3);
+    border-radius: 16px;
+    padding: 8px;
+    list-style: none;
+    margin: 0;
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.55),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s, transform 0.25s;
+    z-index: 200;
+}
+.nav-dropdown:hover .nav-dropdown-menu,
+.nav-dropdown:focus-within .nav-dropdown-menu {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+}
+.nav-dropdown-menu::before {
+    content: '';
+    position: absolute;
+    top: -7px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 12px;
+    height: 12px;
+    background: rgba(42, 15, 46, 0.92);
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+}
+.nav-dropdown-menu li { list-style: none; margin: 0; padding: 0; }
+.nav-dropdown-menu li a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    color: var(--text-muted);
+    font-family: 'Lora', serif;
+    font-size: 0.95em;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s, padding 0.2s;
+    white-space: nowrap;
+}
+.nav-dropdown-menu li a:hover {
+    background: rgba(212, 175, 55, 0.12);
+    color: var(--champagne);
+    padding-left: 20px;
+}
+.nav-dropdown-menu li a i {
+    width: 20px;
+    text-align: center;
+    color: var(--champagne);
+    font-size: 1em;
+    opacity: 0.85;
+}
+.nav-vk-link { font-weight: 700; color: var(--champagne) !important; }
+.nav-vk-link i { color: #4C75A3 !important; font-size: 1.2em !important; }
+.nav-vk-icon a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(76, 117, 163, 0.15);
+    border: 1px solid rgba(76, 117, 163, 0.4);
+    color: #6a9bd8;
+    font-size: 1.1em;
+    text-decoration: none;
+    transition: all 0.25s;
+}
+.nav-vk-icon a:hover {
+    background: #4C75A3;
+    color: #fff;
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 6px 20px rgba(76, 117, 163, 0.5);
+}
 
-    <div class="slide">
-        <div class="slide-content container">
-            <h1>Массаж лица</h1>
-            <p>В том числе лимфодренажный</p>
-            <div class="cta-group">
-                <a href="#booking-form" class="btn btn-primary">Записаться на прием</a>
-                <a href="#consultation" class="btn btn-outline">Получить консультацию</a>
-            </div>
-        </div>
-    </div>
+/* ============ СЛАЙДЕР ============ */
+.hero-slider {
+    height: auto;
+    min-height: 620px;
+    padding: 60px 0;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(rgba(27,10,31,0.55), rgba(27,10,31,0.92)),
+                url('https://images.pexels.com/photos/1169842/pexels-photo-1169842.jpeg') center/cover;
+}
+.slide {
+    position: relative;
+    inset: auto;
+    opacity: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.8s ease-in-out;
+    min-height: 500px;
+}
+.slide.active {
+    display: flex;
+    opacity: 1;
+}
+.slide-content {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.slide-content h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 5rem);
+    line-height: 1.15;
+    font-weight: 700;
+    font-style: italic;
+    background: linear-gradient(90deg, var(--amethyst-soft), var(--champagne), var(--amethyst-soft));
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 0 0 14px;
+    text-align: center;
+    letter-spacing: 0.5px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+    filter: drop-shadow(0 4px 20px rgba(168, 85, 247, 0.35));
+}
+.slide-content p {
+    font-family: 'Cormorant', serif;
+    font-size: clamp(1.1rem, 1.8vw, 1.7rem);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--emerald-soft);
+    margin-bottom: 40px;
+    text-align: center;
+    letter-spacing: 0.5px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s ease-out 0.15s, transform 1s ease-out 0.15s;
+}
+.slide-content .cta-group {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.slide.active .slide-content h1 { opacity: 1; transform: translateY(0); }
+.slide.active .slide-content p  { opacity: 1; transform: translateY(0); }
+@keyframes swayText {
+    0%   { transform: translate(0, 0) rotate(0deg); }
+    20%  { transform: translate(-14px, -6px) rotate(-1.4deg); }
+    50%  { transform: translate(0, -10px) rotate(0deg); }
+    80%  { transform: translate(14px, -6px) rotate(1.4deg); }
+    100% { transform: translate(0, 0) rotate(0deg); }
+}
+.slide.active .slide-content h1 { animation: swayText 6s ease-in-out infinite; }
+@keyframes swaySub {
+    0%   { transform: translateX(0); }
+    25%  { transform: translateX(9px); }
+    75%  { transform: translateX(-9px); }
+    100% { transform: translateX(0); }
+}
+.slide.active .slide-content p { animation: swaySub 6s ease-in-out infinite; animation-delay: 0.4s; }
+.slide-content h1::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 2px;
+    margin: 18px auto 0;
+    background: linear-gradient(90deg, transparent, var(--champagne), transparent);
+    opacity: 0.7;
+}
+.slider-nav {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 5;
+}
+.dot {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.5);
+    cursor: pointer;
+    transition: all 0.25s;
+}
+.dot.active {
+    background: var(--champagne);
+    box-shadow: 0 0 10px var(--champagne);
+    transform: scale(1.2);
+}
 
-    <div class="slide">
-        <div class="slide-content container">
-            <h1>Детский массаж</h1>
-            <p>Бережно и безопасно для малыша</p>
-            <div class="cta-group">
-                <a href="#booking-form" class="btn btn-primary">Записаться на прием</a>
-                <a href="#consultation" class="btn btn-outline">Получить консультацию</a>
-            </div>
-        </div>
-    </div>
+/* ============ КНОПКИ ============ */
+.btn {
+    padding: 16px 36px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1em;
+    cursor: pointer;
+    border: none;
+    transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+    font-family: 'Montserrat', sans-serif;
+    display: inline-block;
+}
+.btn-primary {
+    background: linear-gradient(135deg, var(--amethyst), #7E22CE);
+    color: white;
+    box-shadow: 0 8px 24px rgba(168, 85, 247, 0.4);
+}
+.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(168, 85, 247, 0.6); }
+.btn-outline { background: transparent; border: 2px solid var(--champagne); color: var(--champagne); }
+.btn-outline:hover { background: var(--champagne); color: var(--bg-deep); }
 
-    <div class="slide">
-        <div class="slide-content container">
-            <h1>Атмосфера салона</h1>
-            <p>Спокойная музыка · гипоаллергенные масла</p>
-            <div class="cta-group">
-                <a href="#booking-form" class="btn btn-primary">Записаться на прием</a>
-                <a href="#consultation" class="btn btn-outline">Получить консультацию</a>
-            </div>
-        </div>
-    </div>
+/* ============ ЗАГОЛОВКИ ============ */
+h2 {
+    text-align: center;
+    font-size: clamp(1.7rem, 2.7vw, 2.7rem);
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-weight: 700;
+    margin-bottom: 50px;
+    background: linear-gradient(90deg, var(--champagne), var(--amethyst));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.5px;
+}
 
-    <div class="slider-nav">
-        <span class="dot active"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-    </div>
-</section>
+/* ============ О НАС ============ */
+.about-section { padding: 50px 0 40px; }
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+.feature-card {
+    text-align: center;
+    padding: 30px;
+    background: var(--card-glass);
+    border-radius: 20px;
+    border: 1px solid var(--border-soft);
+    transition: border-color 0.3s, transform 0.3s;
+}
+.feature-card:hover { border-color: var(--champagne); transform: translateY(-5px); }
+.icon-big { font-size: 3em; color: var(--champagne); margin-bottom: 20px; display: block; }
+.feature-card h3 { color: var(--text-primary); font-family: 'Playfair Display', serif; font-style: italic; }
+.feature-card p { color: var(--text-muted); }
 
-<section id="about" class="container about-section">
-    <h2>Почему выбирают салон «Орхидея»?</h2>
-    <div class="features-grid">
-        <div class="feature-card">
-            <i class="fas fa-award icon-big"></i>
-            <h3>Профессиональный подход</h3>
-            <p>Наш салон имеет всю необходимую квалификацию, с которой можно ознакомиться <a href="#diplomas" style="color:var(--champagne);text-decoration:underline;">на сайте</a>.</p>
-        </div>
-        <div class="feature-card">
-            <i class="fas fa-certificate icon-big"></i>
-            <h3>Премиальные масла</h3>
-            <p>Используем только сертифицированные органические составы без парабенов.</p>
-        </div>
-        <div class="feature-card">
-            <i class="fas fa-hand-holding-medical icon-big"></i>
-            <h3>Индивидуальный план</h3>
-            <p>Перед первым сеансом проводится диагностика осанки и мышечных зажимов.</p>
-        </div>
-    </div>
-</section>
+/* ============ ПРАЙС ============ */
+.services-section { padding: 50px 0 40px; background: rgba(0,0,0,0.4); }
+.price-list {
+    max-width: 780px;
+    margin: 0 auto;
+    background: var(--card-glass);
+    border: 1px solid var(--border-glass);
+    border-radius: 24px;
+    padding: 12px 40px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+}
+.price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--border-soft);
+    cursor: pointer;
+    transition: padding 0.3s, background 0.3s, border-color 0.3s;
+    position: relative;
+}
+.price-row:last-child { border-bottom: none; }
+.price-row:hover {
+    background: rgba(212, 175, 55, 0.06);
+    padding-left: 12px;
+    padding-right: 12px;
+    border-radius: 12px;
+    border-bottom-color: rgba(212, 175, 55, 0.3);
+}
+.price-row::after {
+    content: '→';
+    position: absolute;
+    right: 12px; top: 50%;
+    transform: translateY(-50%);
+    color: var(--champagne);
+    opacity: 0; font-size: 1.1em;
+    transition: opacity 0.2s, right 0.2s;
+}
+.price-row:hover::after { opacity: 1; right: 4px; }
+.price-row-left { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.price-row-name {
+    font-family: 'Playfair Display', serif;
+    font-style: italic; font-weight: 600;
+    font-size: 1.15em; color: var(--text-primary); line-height: 1.3;
+}
+.price-row-duration {
+    font-size: 0.9em; color: var(--text-muted);
+    display: flex; align-items: center; gap: 6px;
+}
+.price-row-duration i { color: var(--champagne); font-size: 0.85em; opacity: 0.8; }
+.price-row-price {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700; font-size: 1.25em;
+    color: var(--champagne); white-space: nowrap;
+}
+.services-note {
+    margin-top: 30px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 1.15em;
+    line-height: 1.6;
+    letter-spacing: 0.3px;
+}
+.services-note i { color: var(--champagne); margin-right: 10px; font-size: 1.1em; }
 
-<section id="services" class="services-section">
-    <div class="container">
-        <h2>Услуги и цены</h2>
-        <div class="price-list" id="services-table-body"></div>
+/* ============ ОТЗЫВЫ ============ */
+.reviews-section { padding: 50px 0 40px; }
+.review-slider { display: flex; gap: 30px; overflow-x: auto; padding-bottom: 20px; }
+.review-card {
+    flex: 0 0 calc(33.333% - 20px);
+    min-width: 280px;
+    background: var(--card-glass);
+    padding: 40px; border-radius: 20px;
+    border-left: 4px solid var(--champagne);
+}
+.review-card q {
+    font-family: 'Cormorant', serif;
+    font-style: italic; font-size: 1.2em;
+    margin-bottom: 20px; display: block; line-height: 1.5;
+}
+.review-card cite { color: var(--text-muted); font-size: 0.95em; font-style: normal; }
 
-        <!-- Плашка под прайсом — редактируется в админке -->
-        <div id="services-note-container"></div>
+/* ============ ФОРМЫ ============ */
+.form-section { padding: 50px 0 40px; background: rgba(0,0,0,0.5); }
+.double-form { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.form-box {
+    background: var(--card-glass-strong);
+    padding: 40px; border-radius: 20px;
+    border: 1px solid var(--border-glass);
+}
+.form-box h3 {
+    margin-top: 0; color: var(--champagne);
+    font-family: 'Playfair Display', serif;
+    font-style: italic; font-size: 1.4em;
+}
+.form-box p { color: var(--text-muted); line-height: 1.6; }
+.form-box input, .form-box select {
+    width: 100%; padding: 15px; margin-bottom: 15px;
+    border: 1px solid #444; background: rgba(0,0,0,0.4);
+    color: var(--text-primary); border-radius: 10px;
+    box-sizing: border-box; font-family: inherit; font-size: 1em;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+.form-box input:focus, .form-box select:focus {
+    outline: none; border-color: var(--champagne);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+}
+.form-box label { color: var(--text-muted); font-size: 0.9em; }
 
-        <!-- ================= ВНИМАНИЕ: ПРОТИВОПОКАЗАНИЯ ================= -->
-        <div style="max-width:720px;margin:36px auto 0;padding:26px 48px;text-align:center;
-                    background:rgba(212,175,55,0.08);
-                    border:1.5px solid rgba(212,175,55,0.35);
-                    border-top-color:rgba(255,235,150,0.55);
-                    border-radius:60px;
-                    backdrop-filter:blur(20px) saturate(160%);
-                    -webkit-backdrop-filter:blur(20px) saturate(160%);
-                    box-shadow:0 12px 36px rgba(0,0,0,0.4),
-                               0 0 40px rgba(212,175,55,0.12),
-                               inset 0 1px 0 rgba(255,255,255,0.2),
-                               inset 0 -1px 0 rgba(0,0,0,0.15);">
-            <p style="margin:0 0 10px;font-family:'Playfair Display',serif;font-style:italic;font-weight:700;
-                      font-size:1.4em;color:var(--champagne);letter-spacing:0.5px;
-                      display:flex;align-items:center;justify-content:center;gap:12px;">
-                <i class="fas fa-triangle-exclamation" style="font-size:1.1em;color:var(--champagne-soft);"></i>
-                Внимание!
-            </p>
-            <p style="margin:0;color:var(--text-primary);font-size:1.3em;line-height:1.5;
-                      font-family:'Cormorant',serif;font-style:italic;font-weight:600;letter-spacing:0.3px;">
-                Имеются противопоказания.<br>
-                Необходима консультация врача.
-            </p>
-        </div>
-    </div>
-</section>
+/* ============ ТАЛОНЫ ============ */
+.slots-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(78px, 1fr));
+    gap: 8px; margin: 15px 0 20px;
+}
+.slot {
+    padding: 12px 6px; text-align: center;
+    border-radius: 10px; cursor: pointer;
+    font-weight: 700; font-size: 0.95em;
+    font-family: 'Montserrat', sans-serif;
+    border: 1px solid transparent;
+    transition: all 0.2s; user-select: none;
+}
+.slot-free {
+    background: rgba(52, 211, 153, 0.12);
+    color: var(--st-free);
+    border-color: rgba(52, 211, 153, 0.35);
+}
+.slot-free:hover {
+    background: rgba(52, 211, 153, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(52, 211, 153, 0.25);
+}
+.slot-busy {
+    background: rgba(75, 85, 99, 0.2);
+    color: var(--text-dim);
+    cursor: not-allowed;
+    text-decoration: line-through;
+    border-color: rgba(75, 85, 99, 0.3);
+}
+.slot-selected {
+    background: linear-gradient(135deg, var(--amethyst), #7E22CE) !important;
+    color: white !important;
+    border-color: var(--amethyst-soft) !important;
+    box-shadow: 0 0 18px rgba(168, 85, 247, 0.6);
+    transform: translateY(-2px);
+}
+.slots-empty {
+    color: var(--text-muted);
+    font-style: italic;
+    text-align: center;
+    padding: 20px;
+    grid-column: 1 / -1;
+}
+.slots-hint {
+    grid-column: 1 / -1;
+    font-size: 0.85em;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    padding: 8px 12px;
+    background: rgba(168, 85, 247, 0.08);
+    border-radius: 8px;
+    border: 1px solid var(--border-glass);
+}
+.slots-hint i { color: var(--champagne); margin-right: 4px; }
+.slots-hint b { color: var(--text-primary); }
 
-<!-- ================= ПОДАРОЧНЫЕ СЕРТИФИКАТЫ ================= -->
-<section id="certificates" class="cert-section">
-    <div class="container">
-        <h2>Подарочные сертификаты</h2>
-        <p class="cert-subtitle">Лучший подарок — забота о близком человеке</p>
+/* ============ ФУТЕР ============ */
+.main-footer {
+    background: rgba(0,0,0,0.85);
+    padding: 50px 0 40px; color: var(--text-dim);
+    position: relative; z-index: 5;
+}
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+}
+.footer-grid h4 {
+    color: var(--champagne); margin-bottom: 15px;
+    font-family: 'Playfair Display', serif;
+    font-style: italic; font-size: 1.15em;
+}
+.footer-grid p { color: var(--text-muted); margin: 6px 0; }
 
-        <div class="cert-carousel">
-            <button class="cert-arrow" id="cert-prev" aria-label="Предыдущий сертификат">‹</button>
-            <div class="cert-stage" id="cert-stage"></div>
-            <button class="cert-arrow" id="cert-next" aria-label="Следующий сертификат">›</button>
-        </div>
+/* ============ АНИМАЦИИ ============ */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
 
-        <div class="cert-info">
-            <h3 class="cert-title" id="cert-title"></h3>
-            <p class="cert-desc" id="cert-desc"></p>
-            <a class="cert-cta" id="cert-cta" href="#consultation">
-                <i class="fas fa-phone"></i> Узнать подробнее
-            </a>
-        </div>
+/* ============================================================
+   РЕДАКТОР ПЛАШКИ «ВЫЕЗД НА ДОМ» В АДМИНКЕ
+   ============================================================ */
 
-        <div class="cert-dots" id="cert-dots"></div>
-    </div>
-</section>
+.trip-option-editor {
+    margin-top: 26px;
+    padding-top: 22px;
+    border-top: 1px solid var(--border-soft);
+}
+.trip-option-editor h4 {
+    margin: 0 0 6px;
+    color: var(--champagne);
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.15em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.trip-option-editor h4 i { color: var(--champagne); }
+.trip-option-hint {
+    color: var(--text-muted);
+    font-size: 0.88em;
+    margin: 0 0 14px;
+    line-height: 1.5;
+}
+.trip-option-toggle {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.9em; color: var(--text-muted);
+    cursor: pointer; user-select: none; margin-bottom: 12px;
+}
+.trip-option-toggle input[type="checkbox"] {
+    width: 18px; height: 18px;
+    accent-color: var(--emerald-soft);
+    cursor: pointer;
+}
+.trip-option-input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1.5px solid rgba(212, 175, 55, 0.3);
+    background: rgba(0, 0, 0, 0.35);
+    color: var(--text-primary);
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 1em;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+.trip-option-input::placeholder { color: var(--text-dim); }
+.trip-option-input:hover {
+    border-color: rgba(212, 175, 55, 0.5);
+    background: rgba(0, 0, 0, 0.45);
+}
+.trip-option-input:focus {
+    outline: none;
+    border-color: var(--champagne);
+    background: rgba(168, 85, 247, 0.08);
+    box-shadow:
+        0 0 0 4px rgba(212, 175, 55, 0.12),
+        0 0 20px rgba(212, 175, 55, 0.15);
+}
+.trip-option-input.saved-input {
+    border-color: var(--emerald-soft);
+    box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.2);
+    background: rgba(52, 211, 153, 0.08);
+}
 
-<div class="cert-lightbox" id="cert-lightbox" onclick="if(event.target===this) closeCertLightbox()">
-    <button class="cert-lightbox-close" onclick="closeCertLightbox()" aria-label="Закрыть">✕</button>
-    <img id="cert-lightbox-img" src="" alt="Сертификат">
-</div>
+/* ============================================================
+   МОБИЛЬНАЯ АДАПТАЦИЯ — ПЛАНШЕТ (≤ 900px)
+   ============================================================ */
 
-<section id="reviews" class="container reviews-section">
-    <h2>Отзывы наших клиентов</h2>
-    <div class="review-slider">
-        <div class="review-card">
-            <q>После курса массажа у меня исчезли головные боли, которые мучили 10 лет из-за шеи.</q>
-            <cite>— Елена, 42 года</cite>
-        </div>
-        <div class="review-card">
-            <q>Ходим с малышом на детский массаж. Очень бережно и профессионально.</q>
-            <cite>— Мария, 28 лет</cite>
-        </div>
-        <div class="review-card">
-            <q>Ушла тяжесть в ногах уже после первого сеанса. Очень деликатное отношение.</q>
-            <cite>— Анна, 35 лет</cite>
-        </div>
-    </div>
-</section>
+@media (max-width: 900px) {
+    .frame-left, .frame-right {
+        width: 80px;
+        background-size: 80px auto;
+        opacity: 0.45;
+    }
 
-<!-- ================= КВАЛИФИКАЦИЯ (ДИПЛОМЫ) ================= -->
-<section id="diplomas" class="diplomas-section">
-    <div class="container">
-        <h2>Квалификация специалистов</h2>
-        <p class="diplomas-subtitle">Дипломы и сертификаты, подтверждающие наш профессионализм</p>
-    </div>
+    .fixed-flower {
+        top: 110px;
+        left: 80px;
+        width: 180px;
+        max-height: calc(100vh - 130px);
+        opacity: 0.45;
+    }
 
-    <div class="diplomas-marquee">
-        <div class="diplomas-track" id="diplomas-track"></div>
-    </div>
-</section>
+    .main-header nav { padding: 14px 0; }
+    nav ul { gap: 18px; }
+    .logo { font-size: 1.4em; letter-spacing: 1px; }
+    .hero-slider { min-height: 550px; padding: 40px 0; }
+    .slide { min-height: 450px; }
+    .slide-content h1 { font-size: clamp(1.8rem, 6vw, 3.5rem); }
+    .slide-content p  { font-size: clamp(1rem, 2vw, 1.3rem); }
+    .slide-content h1::after { width: 60px; }
+    .double-form { grid-template-columns: 1fr; gap: 24px; }
+    .form-box { padding: 30px 24px; }
+    .price-list { padding: 8px 24px; }
+    .price-row { padding: 18px 0; gap: 14px; }
+    .price-row-name { font-size: 1.05em; }
+    .price-row-price { font-size: 1.15em; }
+    .review-card { flex: 0 0 85%; }
+    .slots-grid { grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); }
+    .footer-grid { gap: 28px; }
+}
 
-<div class="diplomas-lightbox" id="diplomas-lightbox" onclick="if(event.target===this) closeDiplomaLightbox()">
-    <button class="diplomas-lightbox-close" onclick="closeDiplomaLightbox()" aria-label="Закрыть">✕</button>
-    <img id="diplomas-lightbox-img" src="" alt="Диплом">
-</div>
+/* ============================================================
+   МОБИЛЬНАЯ АДАПТАЦИЯ — ТЕЛЕФОН (≤ 600px)
+   ============================================================ */
 
-<section id="booking-form" class="form-section">
-    <div class="container">
-        <h2>Выберите свой путь к здоровью</h2>
-        <div class="double-form">
+@media (max-width: 600px) {
+    .frame-left, .frame-right { display: none; }
 
-            <div id="consultation" class="form-box consultation-box">
-                <h3>🩺 Получить консультацию</h3>
-                <p>Не уверены, какой вид массажа вам нужен? Оставьте номер — мы перезвоним и поможем определиться.</p>
-                <form onsubmit="submitConsultation(event)">
-                    <input type="text" name="name" placeholder="Ваше имя" required>
-                    <input type="tel" name="phone" placeholder="+7 (___) ___-__-__" required>
+    .fixed-flower {
+        top: 160px;
+        left: 10px;
+        width: 110px;
+        max-height: calc(100vh - 180px);
+        opacity: 0.35;
+    }
 
-                    <!-- Внимание: противопоказания -->
-                    <div style="margin:20px 0 16px;padding:20px 32px;text-align:center;
-                                background:rgba(212,175,55,0.08);
-                                border:1.5px solid rgba(212,175,55,0.35);
-                                border-top-color:rgba(255,235,150,0.55);
-                                border-radius:44px;
-                                backdrop-filter:blur(18px) saturate(160%);
-                                -webkit-backdrop-filter:blur(18px) saturate(160%);
-                                box-shadow:0 8px 24px rgba(0,0,0,0.35),
-                                           0 0 30px rgba(212,175,55,0.1),
-                                           inset 0 1px 0 rgba(255,255,255,0.18);">
-                        <p style="margin:0 0 6px;font-family:'Playfair Display',serif;font-style:italic;font-weight:700;
-                                  font-size:1.15em;color:var(--champagne);letter-spacing:0.5px;
-                                  display:flex;align-items:center;justify-content:center;gap:10px;">
-                            <i class="fas fa-triangle-exclamation" style="font-size:1em;color:var(--champagne-soft);"></i>
-                            Внимание!
-                        </p>
-                        <p style="margin:0;color:var(--text-primary);font-size:1.1em;line-height:1.5;
-                                  font-family:'Cormorant',serif;font-style:italic;font-weight:600;">
-                            Имеются противопоказания.<br>
-                            Необходима консультация врача.
-                        </p>
-                    </div>
+    .container { padding: 0 14px; }
+    h2 { font-size: 1.4rem; margin-bottom: 24px; }
 
-                    <button type="submit" class="btn btn-outline">Жду звонка</button>
-                </form>
-            </div>
+    /* Хедер */
+    .main-header nav {
+        flex-direction: column;
+        gap: 8px;
+        padding: 10px 0;
+        align-items: stretch;
+    }
+    .logo {
+        text-align: center;
+        font-size: 1.2em;
+        letter-spacing: 3px;
+        display: block;
+    }
+    nav ul {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 8px 14px;
+        font-size: 0.85em;
+        width: 100%;
+    }
+    nav ul li { display: flex; align-items: center; }
+    .nav-dropdown { position: static; }
+    .nav-dropdown-menu {
+        left: auto; right: 0;
+        top: calc(100% + 8px);
+        min-width: 190px;
+    }
+    .nav-dropdown-menu::before { display: none; }
+    .nav-vk-icon a { width: 32px; height: 32px; font-size: 0.95em; }
 
-            <div class="form-box booking-box">
-                <h3>🗓 Записаться на прием</h3>
-                <p>Сначала выберите услугу — потом появятся свободные талоны.</p>
-                <form onsubmit="submitBooking(event)">
-                    <input type="text" name="name" placeholder="Ваше имя" required>
-                    <input type="tel" name="phone" placeholder="Телефон" required>
+    /* Слайдер */
+    .hero-slider {
+        min-height: 0;
+        height: auto;
+        padding: 24px 0 40px;
+    }
+    .slide {
+        min-height: 0;
+        padding: 10px 0;
+    }
+    .slide-content { padding: 0 14px; }
+    .slide-content h1 { font-size: 1.65rem; line-height: 1.2; margin-bottom: 6px; }
+    .slide-content p  { font-size: 0.95rem; margin-bottom: 20px; }
+    .slide-content h1::after { width: 44px; margin-top: 10px; }
+    .cta-group { flex-direction: column; gap: 10px; width: 100%; }
+    .btn {
+        padding: 12px 20px;
+        font-size: 0.92em;
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+    }
+    .slider-nav { bottom: 14px; gap: 8px; }
+    .dot { width: 9px; height: 9px; }
 
-                    <label style="display:block;margin:10px 0 5px;color:var(--text-muted);font-size:.9em;">Услуга</label>
-                    <select name="service" id="booking-service" required onchange="renderSlots()">
-                        <option disabled selected value="">— Сначала выберите услугу —</option>
-                    </select>
+    /* О нас */
+    .about-section { padding: 26px 0 20px; }
+    .features-grid { gap: 12px; }
+    .feature-card { padding: 18px 16px; border-radius: 16px; }
+    .feature-card h3 { font-size: 1.05em; margin: 0 0 6px; }
+    .feature-card p { font-size: 0.9em; margin: 0; line-height: 1.5; }
+    .icon-big { font-size: 1.9em; margin-bottom: 10px; }
 
-                    <label style="display:block;margin:10px 0 5px;color:var(--text-muted);font-size:.9em;">Дата визита</label>
-                    <input type="date" name="date" id="booking-date" required onchange="renderSlots()">
+    /* Прайс */
+    .services-section { padding: 26px 0 20px; }
+    .price-list { padding: 2px 14px; border-radius: 16px; }
+    .price-row { padding: 12px 0; gap: 10px; flex-wrap: nowrap; }
+    .price-row-name { font-size: 0.95em; }
+    .price-row-duration { font-size: 0.78em; margin-top: 2px; }
+    .price-row-price { font-size: 1em; }
+    .price-row::after { display: none; }
+    .price-row-left { gap: 2px; }
+    .services-note { font-size: 0.95em; margin-top: 16px; padding: 0 6px; }
 
-                    <label style="display:block;margin:10px 0 5px;color:var(--text-muted);font-size:.9em;">Свободное время</label>
-                    <div id="slots-container" class="slots-grid">
-                        <div class="slots-empty">Сначала выберите услугу и дату</div>
-                    </div>
-                    <input type="hidden" name="time" id="booking-time" required>
+    /* Отзывы */
+    .reviews-section { padding: 26px 0 16px; }
+    .review-slider { gap: 12px; padding-bottom: 12px; }
+    .review-card {
+        flex: 0 0 100%;
+        padding: 18px;
+        border-radius: 14px;
+        border-left-width: 3px;
+    }
+    .review-card q { font-size: 1em; margin-bottom: 10px; }
+    .review-card cite { font-size: 0.85em; }
 
-                    <!-- Внимание: противопоказания -->
-                    <div style="margin:20px 0 16px;padding:20px 32px;text-align:center;
-                                background:rgba(212,175,55,0.08);
-                                border:1.5px solid rgba(212,175,55,0.35);
-                                border-top-color:rgba(255,235,150,0.55);
-                                border-radius:44px;
-                                backdrop-filter:blur(18px) saturate(160%);
-                                -webkit-backdrop-filter:blur(18px) saturate(160%);
-                                box-shadow:0 8px 24px rgba(0,0,0,0.35),
-                                           0 0 30px rgba(212,175,55,0.1),
-                                           inset 0 1px 0 rgba(255,255,255,0.18);">
-                        <p style="margin:0 0 6px;font-family:'Playfair Display',serif;font-style:italic;font-weight:700;
-                                  font-size:1.15em;color:var(--champagne);letter-spacing:0.5px;
-                                  display:flex;align-items:center;justify-content:center;gap:10px;">
-                            <i class="fas fa-triangle-exclamation" style="font-size:1em;color:var(--champagne-soft);"></i>
-                            Внимание!
-                        </p>
-                        <p style="margin:0;color:var(--text-primary);font-size:1.05em;line-height:1.5;
-                                  font-family:'Cormorant',serif;font-style:italic;font-weight:600;">
-                            Имеются противопоказания. Необходима консультация врача.<br>
-                            Отправляя заявку, вы это подтверждаете.
-                        </p>
-                    </div>
+    /* Форма */
+    .form-section { padding: 26px 0 20px; }
+    .form-box { padding: 20px 16px; border-radius: 16px; }
+    .form-box h3 { font-size: 1.1em; margin-bottom: 6px; }
+    .form-box p { font-size: 0.9em; margin: 6px 0 12px; line-height: 1.45; }
+    .form-box input, .form-box select {
+        padding: 12px; font-size: 0.95em; margin-bottom: 10px;
+    }
+    .form-box .btn { width: 100%; padding: 13px; font-size: 0.95em; }
+    .form-box label { margin: 6px 0 3px !important; font-size: 0.85em !important; }
 
-                    <button type="submit" class="btn btn-primary" style="width:100%;">Забронировать время</button>
-                </form>
-            </div>
+    /* Слоты */
+    .slots-grid { grid-template-columns: repeat(4, 1fr); gap: 5px; margin: 10px 0 12px; }
+    .slot { padding: 10px 3px; font-size: 0.8em; border-radius: 8px; }
+    .slots-hint { font-size: 0.78em; padding: 6px 10px; margin-bottom: 6px; }
+    .slots-empty {
+        font-size: 0.85em;
+        padding: 14px 10px;
+    }
 
-        </div>
-    </div>
-</section>
-
-<footer class="main-footer">
-    <div class="container">
-        <div class="footer-grid">
-            <div>
-                <h4>Салон «Орхидея»</h4>
-                <p>Массаж для взрослых и детей</p>
-            </div>
-            <div>
-                <h4>Контакты</h4>
-                <p><i class="fas fa-map-marker-alt"></i> г. Москва, ул. Цветочная, д. 1</p>
-                <p><i class="fas fa-phone"></i> +7 (495) 000-00-00</p>
-                <p>
-                    <i class="fab fa-vk"></i>
-                    <a href="https://vk.ru/orchid_massage" target="_blank" rel="noopener"
-                       style="color:var(--champagne);text-decoration:none;">
-                        vk.ru/orchid_massage
-                    </a>
-                </p>
-            </div>
-            <div>
-                <h4>График</h4>
-                <p>Пн–Вс: 09:00 – 21:00</p>
-            </div>
-        </div>
-
-        <!-- Внимание: противопоказания -->
-        <div style="max-width:720px;margin:40px auto 0;padding:24px 44px;text-align:center;
-                    background:rgba(212,175,55,0.08);
-                    border:1.5px solid rgba(212,175,55,0.35);
-                    border-top-color:rgba(255,235,150,0.55);
-                    border-radius:60px;
-                    backdrop-filter:blur(20px) saturate(160%);
-                    -webkit-backdrop-filter:blur(20px) saturate(160%);
-                    box-shadow:0 12px 36px rgba(0,0,0,0.4),
-                               0 0 40px rgba(212,175,55,0.12),
-                               inset 0 1px 0 rgba(255,255,255,0.2),
-                               inset 0 -1px 0 rgba(0,0,0,0.15);">
-            <p style="margin:0 0 8px;font-family:'Playfair Display',serif;font-style:italic;font-weight:700;
-                      font-size:1.3em;color:var(--champagne);letter-spacing:0.5px;
-                      display:flex;align-items:center;justify-content:center;gap:12px;">
-                <i class="fas fa-triangle-exclamation" style="font-size:1em;color:var(--champagne-soft);"></i>
-                Внимание!
-            </p>
-            <p style="margin:0;color:var(--text-primary);font-size:1.2em;line-height:1.5;
-                      font-family:'Cormorant',serif;font-style:italic;font-weight:600;">
-                Имеются противопоказания. Перед началом курса необходимо проконсультироваться с врачом.
-            </p>
-        </div>
-    </div>
-</footer>
-
-<script src="script.js"></script>
-<script src="slots.js"></script>
-<script src="services.js"></script>
-<script src="booking.js"></script>
-<script src="auth.js"></script>
-<script src="datepicker.js"></script>
-<script src="certificates.js"></script>
-<script src="diplomas.js"></script>
-</body>
-</html>
+    /* Футер */
+    .main-footer { padding: 28px 0 24px; }
+    .footer-grid { gap: 20px; }
+    .footer-grid h4 { font-size: 1em; margin-bottom: 8px; }
+    .footer-grid p { font-size: 0.88em; margin: 4px 0; }
+}
