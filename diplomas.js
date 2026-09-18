@@ -9,8 +9,8 @@ var DIPLOMA_IMG_QUALITY = 0.82;
 /* Дефолт — 3 примера, потом заменишь через админку */
 var DEFAULT_DIPLOMAS = [
     { id: 1, title: 'Сертификат массажиста',      image: 'img/diploma-1.jpg', active: true, order: 1 },
-    { id: 2, title: 'Медицинское образование',    image: 'img/diploma-2.jpg', active: true, order: 2 },
-    { id: 3, title: 'Курс реабилитологии',        image: 'img/diploma-3.jpg', active: true, order: 3 }
+    { id: 2, title: 'Профильное образование',     image: 'img/diploma-2.jpg', active: true, order: 2 },
+    { id: 3, title: 'Курс по работе с телом',     image: 'img/diploma-3.jpg', active: true, order: 3 }
 ];
 
 /* ---------- Хранилище ---------- */
@@ -69,7 +69,6 @@ function renderDiplomasMarquee() {
     }
     if (section) section.style.display = '';
 
-    /* Дублируем ленту 2 раза для бесконечной прокрутки */
     var doubled = list.concat(list);
 
     track.innerHTML = '';
@@ -97,8 +96,6 @@ function renderDiplomasMarquee() {
         track.appendChild(card);
     });
 
-    /* Скорость ленты зависит от количества карточек,
-       чтобы движение было равномерным */
     var baseSeconds = 8;
     var duration = Math.max(20, list.length * baseSeconds);
     track.style.animationDuration = duration + 's';
@@ -189,7 +186,6 @@ function renderAdminDiplomasList() {
         container.appendChild(card);
     });
 
-    /* Навешиваем обработчики на превью */
     container.querySelectorAll('.diploma-edit-thumb').forEach(function (thumb) {
         var diplomaId = Number(thumb.dataset.diplomaId);
 
@@ -215,7 +211,6 @@ function renderAdminDiplomasList() {
     });
 }
 
-/* Скрытый input[type=file] */
 function openDiplomaFilePicker(diplomaId) {
     var input = document.createElement('input');
     input.type = 'file';
@@ -231,7 +226,6 @@ function openDiplomaFilePicker(diplomaId) {
     input.click();
 }
 
-/* Загрузка и сжатие файла */
 function handleDiplomaFile(diplomaId, file) {
     if (!file.type || file.type.indexOf('image/') !== 0) {
         alert('Пожалуйста, выберите изображение (jpg, png, webp)');
@@ -270,7 +264,6 @@ function handleDiplomaFile(diplomaId, file) {
     reader.readAsDataURL(file);
 }
 
-/* Сжатие через canvas */
 function compressDiplomaImage(img, maxWidth, quality) {
     var canvas = document.createElement('canvas');
     var ratio = img.width > maxWidth ? maxWidth / img.width : 1;
@@ -285,7 +278,6 @@ function compressDiplomaImage(img, maxWidth, quality) {
     return canvas.toDataURL('image/jpeg', quality);
 }
 
-/* Сохранение base64 в диплом */
 function saveDiplomaImage(diplomaId, dataUrl) {
     var list = getDiplomas();
     var diploma = list.find(function (d) { return d.id === diplomaId; });
@@ -319,7 +311,6 @@ function saveDiplomaImage(diplomaId, dataUrl) {
     }
 }
 
-/* Очистка фото */
 function clearDiplomaPhoto(event, diplomaId) {
     event.stopPropagation();
     if (!confirm('Удалить фото у этого диплома?')) return;
@@ -337,7 +328,6 @@ function clearDiplomaPhoto(event, diplomaId) {
     }
 }
 
-/* Сохранение полей */
 function saveDiplomaRow(id) {
     var card = document.querySelector('.diploma-edit-card[data-id="' + id + '"]');
     if (!card) return;
@@ -350,7 +340,6 @@ function saveDiplomaRow(id) {
     diploma.order  = Number(card.querySelector('.diploma-edit-order').value) || 0;
     diploma.active = card.querySelector('.diploma-edit-active').checked;
 
-    /* Путь к фото */
     var imageInput = card.querySelector('.diploma-edit-image').value.trim();
     if (imageInput && imageInput.indexOf('data:image') !== 0) {
         diploma.image = imageInput;
