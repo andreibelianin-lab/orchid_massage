@@ -664,7 +664,6 @@ function initClientCabinet() {
     renderMyBookings();
 }
 
-/* Все заявки клиента: и записи на приём, и консультации */
 function getMyRequests() {
     var session = getSession();
     if (!session || session.role !== 'client') return [];
@@ -788,7 +787,6 @@ function renderBookingCard(req) {
         '</div>';
 }
 
-/* Запись на приём (форма в кабинете) */
 function clientRenderSlots() {
     var dateInput = document.getElementById('client-booking-date');
     var serviceSel = document.getElementById('client-service');
