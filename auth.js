@@ -25,10 +25,8 @@ function normalizePhone(phone) {
     var digits = String(phone || '').replace(/\D/g, '');
 
     if (digits.length === 10) {
-        /* 9852684177 → 79852684177 */
         digits = '7' + digits;
     } else if (digits.length === 11 && digits.charAt(0) === '8') {
-        /* 89852684177 → 79852684177 */
         digits = '7' + digits.slice(1);
     }
 
@@ -71,12 +69,10 @@ function loginStep1(name, phone) {
     if (norm.length < 10) return { ok: false, error: 'Введите корректный телефон' };
 
     if (isAdminPhone(phone)) {
-        /* Запоминаем, кто именно пытается войти — понадобится на шаге 2 */
         window.__pendingAdminPhone = phone;
         return { ok: true, needPassword: true };
     }
 
-    /* Клиенту сохраняем номер как он ввёл — для красивых карточек */
     setSession({ role: 'client', name: name, phone: phone });
     return { ok: true, role: 'client' };
 }
