@@ -51,13 +51,14 @@ h1, h2, h3 {
 .frame-left, .frame-right {
     position: fixed;
     top: 0; bottom: 0;
-    width: 120px;
+    width: 140px;
     pointer-events: none;
     z-index: 1;
-    background-image: url("orchid-stem.svg");
+    background-image: url("orchid-stem.png");
     background-repeat: repeat-y;
-    background-size: 100% auto;
-    opacity: 0.85;
+    background-size: 140px auto;
+    background-position: center top;
+    opacity: 0.9;
 }
 .frame-left { left: 0; }
 .frame-right { right: 0; transform: scaleX(-1); }
@@ -648,7 +649,11 @@ h2 {
    ============================================================ */
 
 @media (max-width: 900px) {
-    .frame-left, .frame-right { width: 60px; opacity: 0.35; }
+    .frame-left, .frame-right {
+        width: 80px;
+        background-size: 80px auto;
+        opacity: 0.45;
+    }
     .main-header nav { padding: 14px 0; }
     nav ul { gap: 18px; }
     .logo { font-size: 1.4em; letter-spacing: 1px; }
@@ -778,4 +783,14 @@ h2 {
     .slots-grid { grid-template-columns: repeat(4, 1fr); gap: 5px; margin: 10px 0 12px; }
     .slot { padding: 10px 3px; font-size: 0.8em; border-radius: 8px; }
     .slots-hint { font-size: 0.78em; padding: 6px 10px; margin-bottom: 6px; }
-    .slots-empty { font
+    .slots-empty {
+        font-size: 0.85em;
+        padding: 14px 10px;
+    }
+
+    /* Футер */
+    .main-footer { padding: 28px 0 24px; }
+    .footer-grid { gap: 20px; }
+    .footer-grid h4 { font-size: 1em; margin-bottom: 8px; }
+    .footer-grid p { font-size: 0.88em; margin: 4px 0; }
+}
