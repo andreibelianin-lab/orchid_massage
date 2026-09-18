@@ -63,6 +63,30 @@ h1, h2, h3 {
 .frame-left { left: 0; }
 .frame-right { right: 0; transform: scaleX(-1); }
 
+/* ============ ФИКСИРОВАННЫЙ ЦВЕТОК ПОД ШАПКОЙ ============ */
+.fixed-flower {
+    position: fixed;
+    top: 90px;                     /* сразу под шапкой */
+    left: 140px;                   /* вплотную к правому краю орнамента */
+    height: calc(100vh - 90px);    /* во всю высоту экрана минус шапка */
+    width: auto;
+    max-width: 320px;
+    object-fit: contain;
+    object-position: left top;
+    opacity: 0.7;
+    pointer-events: none;
+    z-index: 3;                    /* выше орнамента (z-index: 1), ниже контента (container z-index: 5) */
+    filter: drop-shadow(0 12px 40px rgba(168, 85, 247, 0.45));
+    animation: fixedFlowerSway 9s ease-in-out infinite;
+    transform-origin: center center;
+    will-change: transform;
+}
+
+@keyframes fixedFlowerSway {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50%      { transform: translateY(-8px) rotate(-2deg); }
+}
+
 /* ============ ХЕДЕР ============ */
 .main-header { position: relative; z-index: 10; }
 .main-header nav {
@@ -654,6 +678,15 @@ h2 {
         background-size: 80px auto;
         opacity: 0.45;
     }
+
+    .fixed-flower {
+        top: 75px;
+        left: 80px;
+        height: calc(100vh - 75px);
+        max-width: 220px;
+        opacity: 0.55;
+    }
+
     .main-header nav { padding: 14px 0; }
     nav ul { gap: 18px; }
     .logo { font-size: 1.4em; letter-spacing: 1px; }
@@ -679,6 +712,15 @@ h2 {
 
 @media (max-width: 600px) {
     .frame-left, .frame-right { display: none; }
+
+    .fixed-flower {
+        top: 130px;
+        left: 12px;
+        height: calc(100vh - 130px);
+        max-width: 140px;
+        opacity: 0.4;
+    }
+
     .container { padding: 0 14px; }
     h2 { font-size: 1.4rem; margin-bottom: 24px; }
 
